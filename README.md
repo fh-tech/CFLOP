@@ -108,7 +108,7 @@
     ```
     
     
-####1.2 EDGES  
+#### 1.2 EDGES  
 * GET
     * gets the edge object with the given ID  
     * request
@@ -191,10 +191,10 @@
           "nodes": [
             {
               "id": 0,
-              "connectedNodes": [1,2,3]
+              "edges": [1,2,3]
             }, {
               "id": 1,
-              "connectedNodes": [1,3]
+              "edges": [1,3]
             }
           ],
           "edges":[
@@ -222,10 +222,10 @@
             "nodes": [
               {
                 "id": 0,
-                "connectedNodes": [1,2,3]
+                "edges": [1,2,3]
               }, {
                 "id": 1,
-                "connectedNodes": [1,3]
+                "edges": [1,3]
               }
             ],
             "edges":[
@@ -252,6 +252,26 @@
      
 * PUT  
     * takes a given transition and executes a step in the graph with it
+    * request  
+    ```json
+    {
+      "state": {
+        "put": {
+          "input": "a"
+        }
+      }
+    }
+    ```
+    * response  
+    ```json
+    {
+      "success": {
+        "node": {"id": 0}
+      } 
+    }
+  
+    ```
+    
     
 ####1.4 failed request
 for every call that fails you get following response with a message  
