@@ -19,6 +19,18 @@
   }
 }
 ```
+
+```json
+{
+  "error": {
+    "message": "some fail message"
+  }
+}
+```
+
+
+
+
 /////// create node
 ```json
 {
