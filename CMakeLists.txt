@@ -3,4 +3,13 @@ project(CFLOP)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(CFLOP main.cpp)
+add_subdirectory(lib/googletest-master)
+
+include_directories(lib/googletest-master/googletest/include)
+include_directories(lib/json/include)
+
+add_executable(CFLOP main.cpp input-interface/Request.h input-interface/NODE_Request.h input-interface/EDGE_Request.h input-interface/STATE_Request.h)
+
+add_executable(run_tests test/test.cpp test/tests.cpp)
+
+target_link_libraries(run_tests gtest gtest_main)
