@@ -9,14 +9,31 @@
 
 using json = nlohmann::json;
 
-
 enum req_type {
+    nodes_post = 1,
+    nodes_delete = 2,
+    nodes_get = 3,
+    nodes_put_start = 4,
+    nodes_put_end = 5,
+    edges_get,
+    edges_post,
+    edges_delete
+
+};
+
+/**
+ * the different request types that can be used
+ */
+enum req_method {
     GET = 1,
     PUT = 2,
     POST = 3,
     DELETE = 4
 };
 
+/**
+ * the actual endpoints that can be accessed with the json
+ */
 enum endpoint {
     STATE = 1,
     NODE = 2,
@@ -24,47 +41,21 @@ enum endpoint {
 };
 
 /**
- * just extracts the endpoint from the json
- * @param j
- * @return
- */
-endpoint extract_endpoint(json& j) {
-    //TODO: comparison with != nullptr necessary implicit conversion to boolean not possible
-    if(j["nodes"] != nullptr) return NODE ;
-    if(j["edges"] != nullptr) return EDGE;
-    if(j["state"] != nullptr) return STATE;
-}
-
-std::string convert_endpoint(endpoint e) {
-    switch(e) {
-        case NODE:
-            return "nodes";
-        case EDGE:
-            return "edges";
-        case STATE:
-            return "state";
-        default:
-            throw std::runtime_error("invalid endpoint");
-    }
-}
-
-req_type extract_req_type(json j, endpoint e) {
-    std::string endP_s = convert_endpoint(e);
-//TODO:    again comparison with != nullptr is necessary
-    if(j[endP_s]["get"] != nullptr) return GET;
-    if(j[endP_s]["put"] != nullptr) return PUT;
-    if(j[endP_s]["post"] != nullptr) return POST;
-    if(j[endP_s]["delete"] != nullptr) return DELETE;
-}
-
-/**
  * Abstract request class
  */
+
 class Request {
 public:
-    virtual req_type get_type() const = 0;
-    virtual endpoint get_endpoint() const = 0;
-    virtual json get_json() const = 0;
+    req_type type;
+    endpoint ePoint;
+    req_method method;
+
+    union {
+        // da sind alle drin
+    };
+
+    req_type get_type() const;
+    endpoint get_endpoint() const;
 };
 
 
