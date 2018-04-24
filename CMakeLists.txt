@@ -13,10 +13,19 @@ add_library(graph-lib
         src/graph/Graph.h
         )
 
+add_library(fsm-lib
+        src/fsm/include/fsm.h
+        src/fsm/State.h
+        src/fsm/Transition.h
+        src/fsm/FinalStateMachine.cpp src/fsm/FinalStateMachine.h)
+
+include_directories(src/graph/include)
+include_directories(src/fsm/include)
+
 set_target_properties(graph-lib PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(fsm-lib PROPERTIES LINKER_LANGUAGE CXX)
 
-target_link_libraries(CFLOP graph-lib)
+target_link_libraries(CFLOP graph-lib fsm-lib)
 
 ##########################################################
 add_subdirectory(libs/googletest/googletest)
@@ -27,6 +36,6 @@ add_executable(graphlib-tests
         src/graph/tests/test.cpp)
 target_link_libraries(graphlib-tests gtest graph-lib)
 
-target_link_libraries(graphlib-tests gtest)
-
-target_link_libraries(graphlib-tests graph-lib)
+add_executable(fsmlib-tests
+        src/fsm/tests/tests.cpp)
+target_link_libraries(fsmlib-tests gtest fsm-lib)
