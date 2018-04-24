@@ -6,7 +6,9 @@
 #define CFLOP_STATE_REQUEST_H
 
 
-class STATE_Request {
+#include "Request.h"
+
+class STATE_Request : public Request {
 
 };
 

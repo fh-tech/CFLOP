@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include "../input-interface/NODE_Request.h"
 
 using json = nlohmann::json;
 
@@ -62,6 +63,29 @@ TEST(json, test4) {
 
     ASSERT_EQ(j["nodes"]["put"]["start"]["id"], 0);
     ASSERT_FALSE(3 == j["nodes"]["put"]["start"]["id"]);
+}
+
+TEST(json_get_type, test1) {
+    std::string input = "{\"nodes\":{\"put\":{\"start\":{\"id\": 0 }}}}";
+    std::istringstream inputS;
+    inputS.str(input);
+
+    json j;
+    inputS >> j;
+
+    // not reliable but interesting
+    // bool test = j.find("nodes") != j.end();
+
+    for(auto it = j.begin(); it != j.end(); ++it) {
+        std::cout << *it << std::endl;
+    }
+    for (auto& element : j) {
+        std::cout << element << '\n';
+    }
+
+    std::cout << j["nodes"] << std::endl;
+    std::cout << j["edges"] << std::endl;
+    std::cout << j["state"] << std::endl;
 }
 
 TEST(make_request, test1) {

@@ -23,6 +23,35 @@ enum endpoint {
     EDGE = 3
 };
 
+endpoint extract_endpoint(json j) {
+    if(j["nodes"]) return NODE;
+    if(j["edges"]) return EDGE;
+    if(j["state"]) return STATE;
+}
+
+std::string convert_endpoint(endpoint e) {
+    switch(e) {
+        case NODE:
+            return "nodes";
+        case EDGE:
+            return "edges";
+        case STATE:
+            return "state";
+    }
+}
+
+req_type extract_req_type(json j, endpoint e = NULL) {
+    std::string endP_s;
+    if(!e) endpoint e = extract_endpoint(j);
+
+    endP_s = convert_endpoint(e);
+    if(j[endP_s]["get"]) return GET;
+    if(j[endP_s]["put"]) return PUT;
+    if(j[endP_s]["post"]) return POST;
+    if(j[endP_s]["delete"]) return DELETE;
+}
+
+
 /**
  * Abstract request class
  */
@@ -30,6 +59,7 @@ class Request {
 public:
     virtual req_type get_type() const = 0;
     virtual endpoint get_endpoint() const = 0;
+    virtual json get_json() const = 0;
 };
 
 

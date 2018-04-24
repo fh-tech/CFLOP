@@ -6,7 +6,9 @@
 #define CFLOP_EDGE_REQUEST_H
 
 
-class EDGE_Request {
+#include "Request.h"
+
+class EDGE_Request : public Request {
 
 };
 
