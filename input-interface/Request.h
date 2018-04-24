@@ -23,10 +23,16 @@ enum endpoint {
     EDGE = 3
 };
 
-endpoint extract_endpoint(json j) {
-    if(j["nodes"]) return NODE;
-    if(j["edges"]) return EDGE;
-    if(j["state"]) return STATE;
+/**
+ * just extracts the endpoint from the json
+ * @param j
+ * @return
+ */
+endpoint extract_endpoint(json& j) {
+    //TODO: comparison with != nullptr necessary implicit conversion to boolean not possible
+    if(j["nodes"] != nullptr) return NODE ;
+    if(j["edges"] != nullptr) return EDGE;
+    if(j["state"] != nullptr) return STATE;
 }
 
 std::string convert_endpoint(endpoint e) {
@@ -37,20 +43,19 @@ std::string convert_endpoint(endpoint e) {
             return "edges";
         case STATE:
             return "state";
+        default:
+            throw std::runtime_error("invalid endpoint");
     }
 }
 
-req_type extract_req_type(json j, endpoint e = NULL) {
-    std::string endP_s;
-    if(!e) endpoint e = extract_endpoint(j);
-
-    endP_s = convert_endpoint(e);
-    if(j[endP_s]["get"]) return GET;
-    if(j[endP_s]["put"]) return PUT;
-    if(j[endP_s]["post"]) return POST;
-    if(j[endP_s]["delete"]) return DELETE;
+req_type extract_req_type(json j, endpoint e) {
+    std::string endP_s = convert_endpoint(e);
+//TODO:    again comparison with != nullptr is necessary
+    if(j[endP_s]["get"] != nullptr) return GET;
+    if(j[endP_s]["put"] != nullptr) return PUT;
+    if(j[endP_s]["post"] != nullptr) return POST;
+    if(j[endP_s]["delete"] != nullptr) return DELETE;
 }
-
 
 /**
  * Abstract request class

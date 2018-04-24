@@ -5,18 +5,14 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include <nlohmann/json.hpp>
-#include "../input-interface/NODE_Request.h"
-
-using json = nlohmann::json;
-
-// TODO: remember istringstream ostringstream stringstream
+#include "../input-interface/Request.h"
 
 /**
  * Escaped string for json library
  */
 TEST(json, test1) {
     json j = "{\"happy\": true, \"pi\": 3.141}"_json;
-
+    std::cout << j << std::endl;
     ASSERT_EQ(j["happy"], true);
     ASSERT_EQ(j["pi"], 3.141);
 }
@@ -24,14 +20,10 @@ TEST(json, test1) {
 TEST(json, test2) {
     json j = json::object();
     j["ar"] = {1, 2, "foo"};
-
     j["ar"].push_back("bar");
-
-    std::cout << j << std::endl;
 
     ASSERT_TRUE(1 == j.size());
     ASSERT_TRUE(4 == j["ar"].size());
-
     j.clear();
     ASSERT_TRUE(j.empty());
 }
@@ -65,29 +57,13 @@ TEST(json, test4) {
     ASSERT_FALSE(3 == j["nodes"]["put"]["start"]["id"]);
 }
 
-TEST(json_get_type, test1) {
-    std::string input = "{\"nodes\":{\"put\":{\"start\":{\"id\": 0 }}}}";
-    std::istringstream inputS;
-    inputS.str(input);
 
-    json j;
-    inputS >> j;
+// not reliable but interesting
+// bool test = j.find("nodes") != j.end();
 
-    // not reliable but interesting
-    // bool test = j.find("nodes") != j.end();
-
-    for(auto it = j.begin(); it != j.end(); ++it) {
-        std::cout << *it << std::endl;
-    }
-    for (auto& element : j) {
-        std::cout << element << '\n';
-    }
-
-    std::cout << j["nodes"] << std::endl;
-    std::cout << j["edges"] << std::endl;
-    std::cout << j["state"] << std::endl;
-}
-
-TEST(make_request, test1) {
-
-}
+//for(auto it = j.begin(); it != j.end(); ++it) {
+//std::cout << *it << std::endl;
+//}
+//for (auto& element : j) {
+//std::cout << element << '\n';
+//}
