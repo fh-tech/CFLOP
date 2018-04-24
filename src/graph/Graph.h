@@ -9,6 +9,8 @@
 #include "Node.h"
 #include <unordered_map>
 #include <bits/unordered_map.h>
+#include <vector>
+#include <iostream>
 
 template <typename N, typename E>
 class Graph {
@@ -26,7 +28,7 @@ public:
                 ));
     }
 
-    node<N>* get_node(node_id id){
+    node<N>* get_node(node_id& id){
         auto search = nodes.find(id);
         if(search != nodes.end()){
             return &(*search);
@@ -43,13 +45,37 @@ public:
         return  id;
     }
 
-    edge<E>* get_edge(edge_id id){
+    edge<E>* get_edge(edge_id& id){
         auto search = edges.find(id);
         if(search != edges.end()){
             return &(*search);
         } else return nullptr;
     }
+
+    std::vector<edge_id> get_adjacent(const node_id node) {
+        auto [rbegin, rend] = connections.equal_range(node);
+
+        std::vector<edge_id> ret{};
+        for(auto it = rbegin; it != rend; ++it){
+            ret.push_back(it->second);
+        }
+        return ret;
+    };
+
+    void remove(const node_id node) {
+        nodes.erase(node);
+        for( auto it = connections.begin(); it != connections.end(); ) {
+            if( get_edge(it->second)->second.to   == node
+            ||  get_edge(it->second)->second.from == node)
+            {
+                edges.erase(get_edge(it->second)->first);
+                it = connections.erase(it);
+            }
+            else ++it;
+        }
+    }
 };
+
 
 
 #endif //CFLOP_GRAPH_H

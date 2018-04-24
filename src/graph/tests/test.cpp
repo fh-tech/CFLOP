@@ -3,6 +3,7 @@
 //
 
 #include <gtest/gtest.h>
+#include <stack>
 #include "../include/graph.h"
 
 TEST(test, tester){
@@ -24,6 +25,66 @@ TEST(edge, graph_makes_new_edge) {
 
     ASSERT_EQ(id1, g.get_edge(eid)->second.from);
 }
+
+TEST(graph, connection){
+    Graph<int, int> g{};
+    auto id1 = g.add_node(1);
+    auto id2 = g.add_node(2);
+
+    auto eid1 = g.add_edge(id1, id2, 5);
+    auto id3 = g.add_node(1);
+    auto eid2 = g.add_edge(id1, id2, 5);
+    auto eid3 = g.add_edge(id1, id3, 10);
+
+    auto expected = std::vector
+            { eid1
+            , eid2
+            , eid3
+            };
+    auto adj =  g.get_adjacent(id1);
+    auto res = std::is_permutation(expected.begin(), expected.end(), adj.begin(), adj.end());
+    ASSERT_TRUE(res);
+}
+
+TEST(graph, remove){
+    Graph<int, int> g{};
+
+    auto id1 = g.add_node(1);
+    auto id2 = g.add_node(2);
+    auto id3 = g.add_node(1);
+    auto id4 = g.add_node(1);
+
+    auto eid1 = g.add_edge(id1, id2, 5);
+    auto eid2 = g.add_edge(id1, id2, 5);
+    auto eid3 = g.add_edge(id1, id3, 10);
+
+    auto eid4 = g.add_edge(id2, id1, 2);
+    auto eid5 = g.add_edge(id3, id1, 2);
+
+    auto eid6 = g.add_edge(id2, id3, 2);
+    auto eid7 = g.add_edge(id2, id4, 2);
+    auto eid8 = g.add_edge(id4, id3, 2);
+
+    g.remove(id1);
+
+    ASSERT_EQ(g.get_edge(eid1), nullptr);
+    ASSERT_EQ(g.get_edge(eid2), nullptr);
+    ASSERT_EQ(g.get_edge(eid3), nullptr);
+    ASSERT_EQ(g.get_edge(eid4), nullptr);
+    ASSERT_EQ(g.get_edge(eid5), nullptr);
+
+    ASSERT_NE(g.get_edge(eid6), nullptr);
+    ASSERT_NE(g.get_edge(eid7), nullptr);
+    ASSERT_NE(g.get_edge(eid8), nullptr);
+
+    ASSERT_EQ(g.get_node(id1), nullptr);
+    ASSERT_NE(g.get_node(id2), nullptr);
+    ASSERT_NE(g.get_node(id3), nullptr);
+    ASSERT_NE(g.get_node(id4), nullptr);
+
+
+}
+
 
 int main(int argc, char** argv){
     ::testing::InitGoogleTest(&argc, argv);

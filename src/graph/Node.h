@@ -18,6 +18,10 @@ public:
         return m_id;
     }
 
+    bool operator== (const node_id& other) const {
+        return ((size_t) *this) == (size_t) other;
+    }
+
     static node_id next_id() {
         static size_t id = 0;
         return node_id{++id};
@@ -33,7 +37,7 @@ private:
 namespace std {
     template <>
     struct hash<node_id>{
-        std::size_t operator()(const node_id& c) const {
+        std::size_t operator() (const node_id& c) const {
             return static_cast<size_t>(c);
         }
     };

@@ -6,6 +6,7 @@
 #define CFLOP_EDGE_H
 
 #include <cstddef>
+#include <utility>
 #include "Node.h"
 
 struct edge_id {
@@ -14,6 +15,10 @@ struct edge_id {
     }
     operator size_t() const {
         return m_id;
+    }
+
+    bool operator == (const edge_id &other) const {
+        return this->m_id == other.m_id;
     }
 
     static edge_id next_id(){
