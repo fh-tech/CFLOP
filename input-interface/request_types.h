@@ -6,6 +6,7 @@
 #define CFLOP_REQUEST_TYPES_H
 
 #include <iostream>
+#include <vector>
 
 struct node {
     size_t id;

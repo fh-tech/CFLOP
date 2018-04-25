@@ -6,8 +6,6 @@
 #include <gtest/gtest.h>
 #include "../input-interface/extract_helper.h"
 
-using json = nlohmann::json;
-
 json nodes_post_j = "  {\n"
         "    \"nodes\": {\n"
         "      \"post\": {}\n"

@@ -5,11 +5,6 @@
 #ifndef CFLOP_REQUEST_H
 #define CFLOP_REQUEST_H
 
-#include <nlohmann/json.hpp>
-#include "request_types.h"
-
-using json = nlohmann::json;
-
 enum req_type {
     nodes_post = 1,
     nodes_delete = 2,
@@ -78,11 +73,5 @@ public:
         return method;
     }
 };
-
-
-
-
-
-
 
 #endif //CFLOP_REQUEST_H

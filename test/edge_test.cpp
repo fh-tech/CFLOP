@@ -5,8 +5,6 @@
 #include <gtest/gtest.h>
 #include "../input-interface/extract_helper.h"
 
-using json = nlohmann::json;
-
 json edges_get_j = "{\n"
         "  \"edges\": {\n"
         "    \"get\": {\n"
