@@ -3,7 +3,6 @@
 //
 
 #include <gtest/gtest.h>
-#include <nlohmann/json.hpp>
 #include "../input-interface/extract_helper.h"
 
 using json = nlohmann::json;
@@ -35,7 +34,7 @@ json edges_delete_j = "{\n"
 
 std::vector<json> edges_j_vec = {edges_get_j, edges_post_j, edges_delete_j};
 
-TEST(extract_test_all, extract_all) {
+TEST(extract_helper, extract_all_fromEdge) {
     std::array<endpoint, 3> endpoint_results = {EDGE, EDGE, EDGE};
     std::array<std::string, 3> conversion_results = {"edges", "edges", "edges"};
     std::array<req_method, 3> type_results = {GET, POST, DELETE};

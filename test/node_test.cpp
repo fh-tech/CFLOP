@@ -4,8 +4,6 @@
 //
 
 #include <gtest/gtest.h>
-#include <iostream>
-#include <nlohmann/json.hpp>
 #include "../input-interface/extract_helper.h"
 
 using json = nlohmann::json;
@@ -58,7 +56,7 @@ std::vector<json> nodes_j_vec = {nodes_post,
                                  nodes_put_start,
                                  nodes_put_start};
 
-TEST(extract_endpoint, test1) {
+TEST(extract_endpoint_test, test1) {
     std::string input = "{\"nodes\":{\"put\":{\"start\":{\"id\": 0 }}}}";
     std::istringstream inputS;
     inputS.str(input);
@@ -79,7 +77,7 @@ TEST(extract_type, test1) {
     ASSERT_EQ(POST, type);
 }
 
-TEST(extract_test_all, extract_all) {
+TEST(extract_helper, extract_all_fromNode) {
     std::array<endpoint, 5> endpoint_results = {NODE, NODE, NODE, NODE, NODE};
     std::array<std::string, 5> conversion_results = {"nodes", "nodes", "nodes", "nodes", "nodes"};
     std::array<req_method, 5> type_results = {POST, DELETE, GET, PUT, PUT};
