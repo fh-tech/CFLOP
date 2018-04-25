@@ -20,7 +20,7 @@ struct edge {
 
 
 //** NODES TYPES **//
-struct nodes_post_s {};
+struct nodes_post_s {}_nodes_post_s;
 struct nodes_delete_s {
     size_t id;
 };

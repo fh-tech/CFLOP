@@ -28,7 +28,7 @@ inline endpoint extract_endpoint(json& j) {
  * @param e an endpoint enum
  * @return a string representation of the enum in json
  */
-inline std::string convert_endpoint(endpoint e) {
+inline std::string convert_endpoint(endpoint& e) {
     switch(e) {
         case NODE:
             return "nodes";
@@ -36,7 +36,7 @@ inline std::string convert_endpoint(endpoint e) {
             return "edges";
         case STATE:
             return "state";
-        default:
+        case INVALID_ENDPOINT:
 //        TODO: what should happen here
             throw std::runtime_error("invalid endpoint");
     }
@@ -48,7 +48,7 @@ inline std::string convert_endpoint(endpoint e) {
  * @param e a endpoint (NODE, EDGE, STATE)
  * @return req_method enum
  */
-inline req_method extract_req_method(json j, endpoint e) {
+inline req_method extract_req_method(json& j, endpoint& e) {
     std::string endP_s = convert_endpoint(e);
     if(j[endP_s]["get"] != nullptr) return GET;
     if(j[endP_s]["put"] != nullptr) return PUT;
@@ -58,7 +58,14 @@ inline req_method extract_req_method(json j, endpoint e) {
     return INVALID_METHOD;
 }
 
-inline req_type make_req_type(endpoint e, req_method method, json j) {
+/**
+ * generates the complete req_type needed to differentiate between the different input-jsons
+ * @param e the enpoint to call
+ * @param method to use on endpoint
+ * @param j the complete json
+ * @return req_type
+ */
+inline req_type make_req_type(endpoint& e, req_method& method, json& j) {
     switch(e) {
         case STATE:
             switch(method) {
@@ -110,7 +117,12 @@ inline req_type make_req_type(endpoint e, req_method method, json j) {
     }
 }
 
-inline req_type make_req_type(json j) {
+/**
+ * generates the complete req_type needed to differentiate between the different input-jsons
+ * @param j the input json with which to make the call
+ * @return the req_type
+ */
+inline req_type make_req_type(json& j) {
     endpoint e = extract_endpoint(j);
     req_method method = extract_req_method(j, e);
     return make_req_type(e, method , j);

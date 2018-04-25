@@ -29,3 +29,22 @@ TEST(make_req_type, req_type_state) {
         ASSERT_EQ(type, results[i]);
     }
 }
+
+TEST(make_req_type, invalid_json) {
+    json j =
+            R"({
+              "state": {
+                "delete": {
+                  "id": 0
+                }
+              }
+            })"_json;
+    endpoint e = extract_endpoint(j);
+    ASSERT_EQ(STATE, e);
+
+    req_method method = extract_req_method(j, e);
+    ASSERT_EQ(method, DELETE);
+
+    req_type type = make_req_type(j);
+    ASSERT_EQ(type, INVALID_TYPE);
+}

@@ -34,10 +34,15 @@ TEST(extract_helper, extract_all_fromNode) {
     std::array<std::string, 5> conversion_results = {"nodes", "nodes", "nodes", "nodes", "nodes"};
     std::array<req_method, 5> type_results = {POST, DELETE, GET, PUT, PUT};
 
-    //for(int i = 0; i < endpoint_results.size(); i++) {
-    //    endpoint e = extract_endpoint(nodes_j_vec[i]);
-    //    ASSERT_EQ(e, endpoint_results[i]);
-    //    ASSERT_EQ(convert_endpoint(e), conversion_results[i]);
-    //    ASSERT_EQ(extract_req_method(nodes_j_vec[i], e), type_results[i]);
-    //}
+    for(int i = 0; i < endpoint_results.size(); i++) {
+        endpoint e = extract_endpoint(nodes_j_vec[i]);
+        ASSERT_EQ(e, endpoint_results[i]);
+        ASSERT_EQ(convert_endpoint(e), conversion_results[i]);
+        ASSERT_EQ(extract_req_method(nodes_j_vec[i], e), type_results[i]);
+    }
+}
+
+TEST(convert_endpoint, convert_node) {
+    endpoint e = NODE;
+    ASSERT_EQ("nodes", convert_endpoint(e));
 }

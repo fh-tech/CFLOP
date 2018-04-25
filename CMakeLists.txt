@@ -54,6 +54,6 @@ add_executable(inputlib-tests
                 src/input/test/json_lohmann_test.cpp
                 src/input/test/node_test.cpp
                 src/input/test/state_tests.cpp
-                src/input/test/json_requests.h src/input/test/req_type_test.cpp)
+                src/input/test/json_requests.h src/input/test/req_type_test.cpp src/input/test/request_test.cpp)
 
 target_link_libraries(inputlib-tests gtest input-lib)

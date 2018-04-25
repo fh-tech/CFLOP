@@ -19,3 +19,13 @@ TEST(extract_helper, extract_all_fromState) {
         ASSERT_EQ(extract_req_method(state_j_vec[i], e), type_results[i]);
     }
 }
+
+TEST(convert_endpoint, convert_state) {
+    endpoint e = STATE;
+    ASSERT_EQ("state", convert_endpoint(e));
+}
+
+TEST(convert_endpoint, invalid_endpoint) {
+    endpoint e = INVALID_ENDPOINT;
+    ASSERT_ANY_THROW(convert_endpoint(e));
+}

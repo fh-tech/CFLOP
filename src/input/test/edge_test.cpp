@@ -14,3 +14,8 @@ TEST(extract_helper, extract_all_fromEdge) {
         ASSERT_EQ(extract_req_method(edges_j_vec[i], e), type_results[i]);
     }
 }
+
+TEST(convert_endpoint, convert_edge) {
+    endpoint e = EDGE;
+    ASSERT_EQ("edges", convert_endpoint(e));
+}
