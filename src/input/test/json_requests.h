@@ -135,7 +135,7 @@ inline std::vector<json> nodes_j_vec = {nodes_post_j,
                                  nodes_delete_j,
                                  nodes_get_j,
                                  nodes_put_start_j,
-                                 nodes_put_start_j};
+                                 nodes_put_end_j};
 
 inline std::vector<json> state_j_vec = {state_get_j,
                                  state_post_j,
