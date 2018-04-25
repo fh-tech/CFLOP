@@ -13,7 +13,6 @@ TEST(json, test1) {
         "pi": 3.141
       }
     )"_json;
-    std::cout << j << std::endl;
     ASSERT_EQ(j["happy"], true);
     ASSERT_EQ(j["pi"], 3.141);
 }

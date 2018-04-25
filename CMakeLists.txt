@@ -49,7 +49,10 @@ add_executable(fsmlib-tests
 target_link_libraries(fsmlib-tests gtest fsm-lib)
 
 add_executable(inputlib-tests
-        src/input/test/tests.cpp
-        src/input/test/edge_test.cpp
-        src/input/test/json_lohmann_test.cpp src/input/test/node_test.cpp src/input/test/state_tests.cpp)
+                src/input/test/tests.cpp
+                src/input/test/edge_test.cpp
+                src/input/test/json_lohmann_test.cpp
+                src/input/test/node_test.cpp
+                src/input/test/state_tests.cpp)
+
 target_link_libraries(inputlib-tests gtest input-lib)

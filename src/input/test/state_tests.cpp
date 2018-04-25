@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "input.h"
+#include <input.h>
 
 json state_get_j =
         R"({
@@ -30,7 +30,7 @@ json state_post_j =
                   {
                     "id": 1,
                     "from": 0,
-                    "to": 1,
+                    "to": 1
                   }
                 ],
                 "active": 1,
