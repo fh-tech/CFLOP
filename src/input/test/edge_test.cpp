@@ -1,30 +1,33 @@
 #include <gtest/gtest.h>
 #include "input.h"
 
-json edges_get_j = "{\n"
-                   "  \"edges\": {\n"
-                   "    \"get\": {\n"
-                   "      \"id\": 0\n"
-                   "    }\n"
-                   "  }\n"
-                   "}"_json;
+json edges_get_j =
+        R"({
+          "edges": {
+            "get": {
+              "id": 0
+            }
+          }
+        })"_json;
 
-json edges_post_j = "{\n"
-                    "  \"edges\":{\n"
-                    "    \"post\":{\n"
-                    "      \"to\": 1,\n"
-                    "      \"from\": 2\n"
-                    "    }\n"
-                    "  }\n"
-                    "}"_json;
+json edges_post_j =
+        R"({
+          "edges":{
+            "post":{
+              "to": 1,
+              "from": 2
+            }
+          }
+        })"_json;
 
-json edges_delete_j = "{\n"
-                      "  \"edges\": {\n"
-                      "    \"delete\": {\n"
-                      "      \"id\": 0\n"
-                      "    }\n"
-                      "  }\n"
-                      "}"_json;
+json edges_delete_j =
+        R"({
+          "edges": {
+            "delete": {
+              "id": 0
+            }
+          }
+        })"_json;
 
 std::vector<json> edges_j_vec = {edges_get_j, edges_post_j, edges_delete_j};
 

@@ -7,7 +7,12 @@ using json = nlohmann::json;
  * Escaped string for json library
  */
 TEST(json, test1) {
-    json j = "{\"happy\":true,\"pi\":3.141}"_json;
+    json j = R"(
+      {
+        "happy": true,
+        "pi": 3.141
+      }
+    )"_json;
     std::cout << j << std::endl;
     ASSERT_EQ(j["happy"], true);
     ASSERT_EQ(j["pi"], 3.141);

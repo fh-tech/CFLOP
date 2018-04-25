@@ -5,47 +5,50 @@
 #include <gtest/gtest.h>
 #include "input.h"
 
-json state_get_j = "{\n"
-                   "  \"state\":{\n"
-                   "    \"get\":{}\n"
-                   "  }\n"
-                   "}"_json;
+json state_get_j =
+        R"({
+          "state":{
+            "get":{}
+          }
+        })"_json;
 
-json state_post_j = "{\n"
-                    "  \"state\":{\n"
-                    "    \"post\":{\n"
-                    "      \"state\": {\n"
-                    "        \"nodes\": [\n"
-                    "          {\n"
-                    "            \"id\": 0,\n"
-                    "            \"edges\": [1,2,3]\n"
-                    "          }, {\n"
-                    "            \"id\": 1,\n"
-                    "            \"edges\": [1,3]\n"
-                    "          }\n"
-                    "        ],\n"
-                    "        \"edges\":[\n"
-                    "          {\n"
-                    "            \"id\": 1,\n"
-                    "            \"from\": 0,\n"
-                    "            \"to\": 1,\n"
-                    "          }\n"
-                    "        ],\n"
-                    "        \"active\": 1,\n"
-                    "        \"start\": 1,\n"
-                    "        \"end\": 0\n"
-                    "      }\n"
-                    "    }\n"
-                    "  }\n"
-                    "}"_json;
+json state_post_j =
+        R"({
+          "state":{
+            "post":{
+              "state": {
+                "nodes": [
+                  {
+                    "id": 0,
+                    "edges": [1,2,3]
+                  }, {
+                    "id": 1,
+                    "edges": [1,3]
+                  }
+                ],
+                "edges":[
+                  {
+                    "id": 1,
+                    "from": 0,
+                    "to": 1,
+                  }
+                ],
+                "active": 1,
+                "start": 1,
+                "end": 0
+              }
+            }
+          }
+        })"_json;
 
-json state_put_j = "{\n"
-                   "  \"state\": {\n"
-                   "    \"put\": {\n"
-                   "      \"input\": \"a\"\n"
-                   "    }\n"
-                   "  }\n"
-                   "}"_json;
+json state_put_j =
+        R"({
+          "state": {
+            "put": {
+              "input": "a"
+            }
+          }
+        })"_json;
 
 std::vector<json> state_j_vec = {state_get_j, state_post_j, state_put_j};
 

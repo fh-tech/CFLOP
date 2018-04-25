@@ -6,47 +6,53 @@
 #include <gtest/gtest.h>
 #include <input.h>
 
-json nodes_post_j = "{\n"
-                    "  \"nodes\": {\n"
-                    "    \"post\": {}\n"
-                    "  }\n"
-                    "}"_json;
+json nodes_post_j =
+        R"(  {
+          "nodes": {
+            "post": {}
+          }
+        })"_json;
 
-json nodes_delete_j = "{\n"
-                      "  \"nodes\": {\n"
-                      "    \"delete\": {\n"
-                      "      \"id\": 0\n"
-                      "    }\n"
-                      "  }\n"
-                      "}"_json;
+json nodes_delete_j =
+        R"({
+          "nodes": {
+            "delete": {
+              "id": 0
+            }
+          }
+        })"_json;
 
-json nodes_get_j = "  {\n"
-                   "    \"nodes\": {\n"
-                   "      \"get\": {\n"
-                   "        \"id\": 0\n"
-                   "      }\n"
-                   "    }\n"
-                   "  }"_json;
 
-json nodes_put_start_j = "{\n"
-                         "  \"nodes\":{\n"
-                         "    \"put\":{\n"
-                         "      \"start\":{\n"
-                         "        \"id\": 0\n"
-                         "      }\n"
-                         "    }\n"
-                         "  }\n"
-                         "}"_json;
+json nodes_get_j =
+        R"({
+            "nodes": {
+              "get": {
+                "id": 0
+              }
+            }
+        })"_json;
 
-json nodes_put_end_j = "{\n"
-                       "  \"nodes\":{\n"
-                       "    \"put\":{\n"
-                       "      \"end\":{\n"
-                       "        \"id\": 0\n"
-                       "      }\n"
-                       "    }\n"
-                       "  }\n"
-                       "}"_json;
+json nodes_put_start_j =
+        R"({
+          "nodes":{
+            "put":{
+              "start":{
+                "id": 0
+              }
+            }
+          }
+        })"_json;
+
+json nodes_put_end_j =
+        R"({
+          "nodes":{
+            "put":{
+              "end":{
+                "id": 0
+              }
+            }
+          }
+        })"_json;
 
 std::vector<json> nodes_j_vec = {nodes_post_j,
                                  nodes_delete_j,
