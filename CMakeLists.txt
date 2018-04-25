@@ -17,7 +17,7 @@ add_library(fsm-lib
         src/fsm/include/fsm.h
         src/fsm/State.h
         src/fsm/Transition.h
-        src/fsm/FinalStateMachine.cpp src/fsm/FinalStateMachine.h)
+        src/fsm/FinalStateMachine.h)
 
 include_directories(src/graph/include)
 include_directories(src/fsm/include)

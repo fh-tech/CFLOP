@@ -29,6 +29,10 @@ public:
 
     node_id(const node_id& other) = default;
 
+    static node_id invalid_node() {
+        return {0};
+    }
+
 private:
     node_id(size_t t): m_id(t) {}
 };
