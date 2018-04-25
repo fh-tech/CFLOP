@@ -5,60 +5,7 @@
 
 #include <gtest/gtest.h>
 #include <input.h>
-
-json nodes_post_j =
-        R"(  {
-          "nodes": {
-            "post": {}
-          }
-        })"_json;
-
-json nodes_delete_j =
-        R"({
-          "nodes": {
-            "delete": {
-              "id": 0
-            }
-          }
-        })"_json;
-
-
-json nodes_get_j =
-        R"({
-            "nodes": {
-              "get": {
-                "id": 0
-              }
-            }
-        })"_json;
-
-json nodes_put_start_j =
-        R"({
-          "nodes":{
-            "put":{
-              "start":{
-                "id": 0
-              }
-            }
-          }
-        })"_json;
-
-json nodes_put_end_j =
-        R"({
-          "nodes":{
-            "put":{
-              "end":{
-                "id": 0
-              }
-            }
-          }
-        })"_json;
-
-std::vector<json> nodes_j_vec = {nodes_post_j,
-                                 nodes_delete_j,
-                                 nodes_get_j,
-                                 nodes_put_start_j,
-                                 nodes_put_start_j};
+#include "json_requests.h"
 
 TEST(extract_endpoint_test, test1) {
     std::string input = "{\"nodes\":{\"put\":{\"start\":{\"id\": 0 }}}}";

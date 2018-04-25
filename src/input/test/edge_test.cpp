@@ -1,35 +1,6 @@
 #include <gtest/gtest.h>
 #include "input.h"
-
-json edges_get_j =
-        R"({
-          "edges": {
-            "get": {
-              "id": 0
-            }
-          }
-        })"_json;
-
-json edges_post_j =
-        R"({
-          "edges":{
-            "post":{
-              "to": 1,
-              "from": 2
-            }
-          }
-        })"_json;
-
-json edges_delete_j =
-        R"({
-          "edges": {
-            "delete": {
-              "id": 0
-            }
-          }
-        })"_json;
-
-std::vector<json> edges_j_vec = {edges_get_j, edges_post_j, edges_delete_j};
+#include "json_requests.h"
 
 TEST(extract_helper, extract_all_fromEdge) {
     std::array<endpoint, 3> endpoint_results = {EDGE, EDGE, EDGE};

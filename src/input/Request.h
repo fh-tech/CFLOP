@@ -4,24 +4,30 @@
 
 #ifndef CFLOP_REQUEST_H
 #define CFLOP_REQUEST_H
+
+/**
+ * The total kind of request the json is. INVALID means the json was ill-formed
+ */
 enum req_type {
-    nodes_post = 1,
-    nodes_delete = 2,
-    nodes_get = 3,
-    nodes_put_start = 4,
-    nodes_put_end = 5,
-    edges_get = 6,
-    edges_post = 7,
-    edges_delete = 8,
-    state_get = 9,
-    state_post = 10,
-    state_put = 11
+    INVALID_TYPE = 0,
+    NODES_POST = 1,
+    NODES_DELETE = 2,
+    NODES_GET = 3,
+    NODES_PUT_START = 4,
+    NODES_PUT_END = 5,
+    EDGES_GET = 6,
+    EDGES_POST = 7,
+    EDGES_DELETE = 8,
+    STATE_GET = 9,
+    STATE_POST = 10,
+    STATE_PUT = 11
 };
 
 /**
- * the different request types that can be used
+ * the different request types that can be used INVALID means the json was ill-formed
  */
 enum req_method {
+    INVALID_METHOD = 0,
     GET = 1,
     PUT = 2,
     POST = 3,
@@ -29,9 +35,10 @@ enum req_method {
 };
 
 /**
- * the actual endpoints that can be accessed with the json
+ * the actual endpoints that can be accessed with the json INVALID means the json was ill-formed
  */
 enum endpoint {
+    INVALID_ENDPOINT = 0,
     STATE = 1,
     NODE = 2,
     EDGE = 3

@@ -56,14 +56,3 @@ TEST(json, test4) {
     ASSERT_EQ(j["nodes"]["put"]["start"]["id"], 0);
     ASSERT_FALSE(3 == j["nodes"]["put"]["start"]["id"]);
 }
-
-
-// not reliable but interesting
-// bool test = j.find("nodes") != j.end();
-
-//for(auto it = j.begin(); it != j.end(); ++it) {
-//std::cout << *it << std::endl;
-//}
-//for (auto& element : j) {
-//std::cout << element << '\n';
-//}

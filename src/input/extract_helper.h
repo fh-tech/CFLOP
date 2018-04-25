@@ -20,6 +20,7 @@ inline endpoint extract_endpoint(json& j) {
     if(j["nodes"] != nullptr) return NODE;
     if(j["edges"] != nullptr) return EDGE;
     if(j["state"] != nullptr) return STATE;
+    return INVALID_ENDPOINT;
 }
 
 /**
@@ -36,6 +37,7 @@ inline std::string convert_endpoint(endpoint e) {
         case STATE:
             return "state";
         default:
+//        TODO: what should happen here
             throw std::runtime_error("invalid endpoint");
     }
 }
@@ -53,6 +55,7 @@ inline req_method extract_req_method(json j, endpoint e) {
     if(j[endP_s]["post"] != nullptr) return POST;
     if(j[endP_s]["delete"] != nullptr) return DELETE;
     //TODO:    again comparison with != nullptr is necessary
+    return INVALID_METHOD;
 }
 
 inline req_type make_req_type(endpoint e, req_method method, json j) {
@@ -60,37 +63,50 @@ inline req_type make_req_type(endpoint e, req_method method, json j) {
         case STATE:
             switch(method) {
                 case GET:
-                    return state_get;
+                    return STATE_GET;
                 case PUT:
-                    return state_put;
+                    return STATE_PUT;
                 case POST:
-                    return state_post;
+                    return STATE_POST;
+//                DELETE not yet used on STATE
+                case DELETE:
+                    return INVALID_TYPE;
+                case INVALID_METHOD:
+                    return INVALID_TYPE;
             }
             break;
         case NODE:
             switch(method) {
                 case POST:
-                    return nodes_post;
+                    return NODES_POST;
                 case DELETE:
-                    return nodes_delete;
+                    return NODES_DELETE;
                 case GET:
-                    return nodes_get;
+                    return NODES_GET;
                 case PUT:
-                    if(j["nodes"]["put"]["start"] != nullptr) return nodes_put_start;
-                    if(j["nodes"]["put"]["end"] != nullptr) return nodes_put_end;
-                    break;
+                    if(j["nodes"]["put"]["start"] != nullptr) return NODES_PUT_START;
+                    if(j["nodes"]["put"]["end"] != nullptr) return NODES_PUT_END;
+                    return INVALID_TYPE;
+                case INVALID_METHOD:
+                    return INVALID_TYPE;
             }
             break;
         case EDGE:
             switch(method) {
                 case GET:
-                    return edges_get;
+                    return EDGES_GET;
                 case POST:
-                    return edges_post;
+                    return EDGES_POST;
                 case DELETE:
-                    return edges_delete;
+                    return EDGES_DELETE;
+//                PUT not yet used on EDGE
+                case PUT:
+                    return INVALID_TYPE;
+                case INVALID_METHOD:
+                    return INVALID_TYPE;
             }
-            break;
+        case INVALID_ENDPOINT:
+            return INVALID_TYPE;
     }
 }
 
