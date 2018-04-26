@@ -70,6 +70,7 @@ public:
                 state_post_s,
                 state_put_s> request;
 
+    explicit Request() = default;
 
     explicit Request(req_type type, endpoint ePoint, req_method method, nodes_post_s s)
             :type(type),
@@ -79,6 +80,13 @@ public:
     {};
 
     explicit Request(req_type type, endpoint ePoint, req_method method, nodes_get_s s)
+            :type(type),
+             ePoint(ePoint),
+             method(method),
+             request(s)
+    {};
+
+    explicit Request(req_type type, endpoint ePoint, req_method method, nodes_delete_s s)
             :type(type),
              ePoint(ePoint),
              method(method),
