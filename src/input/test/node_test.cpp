@@ -15,7 +15,7 @@ TEST(extract_endpoint_test, test1) {
     json j;
     inputS >> j;
 
-    endpoint e = extract_endpoint(j);
+    const endpoint e = extract_endpoint(j);
     ASSERT_TRUE(e == NODE);
     ASSERT_FALSE(e == STATE);
 }
@@ -23,9 +23,9 @@ TEST(extract_endpoint_test, test1) {
 TEST(extract_type, test1) {
     json j = nodes_j_vec[0];
 
-    endpoint e = NODE;
+    const endpoint e = NODE;
     std::string endP_s = convert_endpoint(e);
-    req_method type = extract_req_method(j, e);
+    const req_method type = extract_req_method(j, e);
     ASSERT_EQ(POST, type);
 }
 
@@ -35,7 +35,7 @@ TEST(extract_helper, extract_all_fromNode) {
     std::array<req_method, 5> type_results = {POST, DELETE, GET, PUT, PUT};
 
     for(int i = 0; i < endpoint_results.size(); i++) {
-        endpoint e = extract_endpoint(nodes_j_vec[i]);
+        const endpoint e = extract_endpoint(nodes_j_vec[i]);
         ASSERT_EQ(e, endpoint_results[i]);
         ASSERT_EQ(convert_endpoint(e), conversion_results[i]);
         ASSERT_EQ(extract_req_method(nodes_j_vec[i], e), type_results[i]);
@@ -43,6 +43,6 @@ TEST(extract_helper, extract_all_fromNode) {
 }
 
 TEST(convert_endpoint, convert_node) {
-    endpoint e = NODE;
+    const endpoint e = NODE;
     ASSERT_EQ("nodes", convert_endpoint(e));
 }

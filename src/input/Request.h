@@ -5,7 +5,9 @@
 #ifndef CFLOP_REQUEST_H
 #define CFLOP_REQUEST_H
 
-#include <input.h>
+#include <variant>
+#include "request_types.h"
+
 
 /**
  * The total kind of request the json is. INVALID means the json was ill-formed
@@ -56,80 +58,87 @@ public:
     endpoint ePoint;
     req_method method;
 
-    union request {
-        nodes_post_s;
-        nodes_get_s;
-        nodes_put_start_s;
-        nodes_put_end_s;
+    std::variant <nodes_post_s,
+                nodes_get_s,
+                nodes_delete_s,
+                nodes_put_start_s,
+                nodes_put_end_s,
+                edges_get_s,
+                edges_post_s,
+                edges_delete_s,
+                state_get_s,
+                state_post_s,
+                state_put_s> request;
 
-        edges_get_s;
-        edges_post_s;
-        edges_delete_s;
 
-        state_get_s;
-        state_post_s;
-        state_put_s;
-    };
+    explicit Request(req_type type, endpoint ePoint, req_method method, nodes_post_s s)
+            :type(type),
+             ePoint(ePoint),
+             method(method),
+             request(s)
+    {};
 
-    Request(req_type type, endpoint ePoint, req_method method, nodes_post_s s)
+    explicit Request(req_type type, endpoint ePoint, req_method method, nodes_get_s s)
             :type(type),
              ePoint(ePoint),
              method(method),
              request(s)
-    {}
-    Request(req_type type, endpoint ePoint, req_method method, nodes_get_s s)
+    {};
+
+    explicit Request(req_type type, endpoint ePoint, req_method method, nodes_put_start_s s)
             :type(type),
              ePoint(ePoint),
              method(method),
              request(s)
-    {}
-    Request(req_type type, endpoint ePoint, req_method method, nodes_put_start_s s)
+    {};
+
+    explicit Request(req_type type, endpoint ePoint, req_method method, nodes_put_end_s s)
             :type(type),
              ePoint(ePoint),
              method(method),
              request(s)
-    {}
-    Request(req_type type, endpoint ePoint, req_method method, nodes_put_end_s s)
+    {};
+
+    explicit Request(req_type type, endpoint ePoint, req_method method, edges_get_s s)
             :type(type),
              ePoint(ePoint),
              method(method),
              request(s)
-    {}
-    Request(req_type type, endpoint ePoint, req_method method, edges_get_s s)
+    {};
+
+    explicit Request(req_type type, endpoint ePoint, req_method method, edges_post_s s)
             :type(type),
              ePoint(ePoint),
              method(method),
              request(s)
-    {}
-    Request(req_type type, endpoint ePoint, req_method method, edges_post_s s)
+    {};
+
+    explicit Request(req_type type, endpoint ePoint, req_method method, edges_delete_s s)
             :type(type),
              ePoint(ePoint),
              method(method),
              request(s)
-    {}
-    Request(req_type type, endpoint ePoint, req_method method, edges_delete_s s)
+    {};
+
+    explicit Request(req_type type, endpoint ePoint, req_method method, state_get_s s)
             :type(type),
              ePoint(ePoint),
              method(method),
              request(s)
-    {}
-    Request(req_type type, endpoint ePoint, req_method method, state_get_s s)
+    {};
+
+    explicit Request(req_type type, endpoint ePoint, req_method method, state_post_s s)
             :type(type),
              ePoint(ePoint),
              method(method),
              request(s)
-    {}
-    Request(req_type type, endpoint ePoint, req_method method, state_post_s s)
+    {};
+
+    explicit Request(req_type type, endpoint ePoint, req_method method, state_put_s s)
             :type(type),
              ePoint(ePoint),
              method(method),
              request(s)
-    {}
-    Request(req_type type, endpoint ePoint, req_method method, state_put_s s)
-            :type(type),
-             ePoint(ePoint),
-             method(method),
-             request(s)
-    {}
+    {};
 };
 #endif //CFLOP_REQUEST_H

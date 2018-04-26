@@ -7,7 +7,6 @@
 
 #include "Request.h"
 #include "../../libs/json/single_include/nlohmann/json.hpp"
-
 using json = nlohmann::json;
 
 /**
@@ -15,11 +14,11 @@ using json = nlohmann::json;
  * @param j
  * @return
  */
-inline endpoint extract_endpoint(json& j) {
+inline endpoint extract_endpoint(const json& j) {
     //TODO: comparison with != nullptr necessary implicit conversion to boolean not possible
-    if(j["nodes"] != nullptr) return NODE;
-    if(j["edges"] != nullptr) return EDGE;
-    if(j["state"] != nullptr) return STATE;
+    if(j.find("nodes") != j.end()) return NODE;
+    if(j.find("edges") != j.end()) return EDGE;
+    if(j.find("state") != j.end()) return STATE;
     return INVALID_ENDPOINT;
 }
 
@@ -28,7 +27,7 @@ inline endpoint extract_endpoint(json& j) {
  * @param e an endpoint enum
  * @return a string representation of the enum in json
  */
-inline std::string convert_endpoint(endpoint& e) {
+inline std::string convert_endpoint(const endpoint& e) {
     switch(e) {
         case NODE:
             return "nodes";
@@ -37,8 +36,7 @@ inline std::string convert_endpoint(endpoint& e) {
         case STATE:
             return "state";
         case INVALID_ENDPOINT:
-//        TODO: what should happen here
-            throw std::runtime_error("invalid endpoint");
+            return "invalid";
     }
 }
 
@@ -48,12 +46,13 @@ inline std::string convert_endpoint(endpoint& e) {
  * @param e a endpoint (NODE, EDGE, STATE)
  * @return req_method enum
  */
-inline req_method extract_req_method(json& j, endpoint& e) {
+inline req_method extract_req_method(const json& j, const endpoint& e) {
     std::string endP_s = convert_endpoint(e);
-    if(j[endP_s]["get"] != nullptr) return GET;
-    if(j[endP_s]["put"] != nullptr) return PUT;
-    if(j[endP_s]["post"] != nullptr) return POST;
-    if(j[endP_s]["delete"] != nullptr) return DELETE;
+
+    if(j[endP_s].find("get") != j[endP_s].end()) return GET;
+    if(j[endP_s].find("put") != j[endP_s].end()) return PUT;
+    if(j[endP_s].find("post") != j[endP_s].end()) return POST;
+    if(j[endP_s].find("delete") != j[endP_s].end()) return DELETE;
     //TODO:    again comparison with != nullptr is necessary
     return INVALID_METHOD;
 }
@@ -65,7 +64,7 @@ inline req_method extract_req_method(json& j, endpoint& e) {
  * @param j the complete json
  * @return req_type
  */
-inline req_type make_req_type(endpoint& e, req_method& method, json& j) {
+inline req_type make_req_type(const endpoint& e, const req_method& method, const json& j) {
     switch(e) {
         case STATE:
             switch(method) {
@@ -91,8 +90,8 @@ inline req_type make_req_type(endpoint& e, req_method& method, json& j) {
                 case GET:
                     return NODES_GET;
                 case PUT:
-                    if(j["nodes"]["put"]["start"] != nullptr) return NODES_PUT_START;
-                    if(j["nodes"]["put"]["end"] != nullptr) return NODES_PUT_END;
+                    if(j["nodes"]["put"].find("start") != j["nodes"]["put"].end()) return NODES_PUT_START;
+                    if(j["nodes"]["put"].find("end") != j["nodes"]["put"].end()) return NODES_PUT_END;
                     return INVALID_TYPE;
                 case INVALID_METHOD:
                     return INVALID_TYPE;
@@ -122,9 +121,9 @@ inline req_type make_req_type(endpoint& e, req_method& method, json& j) {
  * @param j the input json with which to make the call
  * @return the req_type
  */
-inline req_type make_req_type(json& j) {
-    endpoint e = extract_endpoint(j);
-    req_method method = extract_req_method(j, e);
+inline req_type make_req_type(const json& j) {
+    const endpoint e = extract_endpoint(j);
+    const req_method method = extract_req_method(j, e);
     return make_req_type(e, method , j);
 }
 

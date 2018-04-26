@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 
+
+
 struct node {
     size_t id;
     std::vector<size_t> edges{};
@@ -18,9 +20,8 @@ struct edge {
     size_t to;
 };
 
-
 //** NODES TYPES **//
-struct nodes_post_s {}_nodes_post_s;
+struct nodes_post_s {};
 struct nodes_delete_s {
     size_t id;
 };

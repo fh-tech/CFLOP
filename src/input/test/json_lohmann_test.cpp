@@ -1,8 +1,6 @@
 #include <gtest/gtest.h>
 #include <input.h>
 
-using json = nlohmann::json;
-
 /**
  * Escaped string for json library
  */
