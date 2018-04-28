@@ -16,6 +16,40 @@ TEST(construct_request, nodes) {
         ASSERT_EQ(r.value().type, type_results[i]);
         ASSERT_EQ(r.value().ePoint, NODE);
         ASSERT_EQ(r.value().method, m_results[i]);
+
+        switch(r.value().type) {
+            case NODES_POST:
+                    nodes_post_s struc = std::get<nodes_delete_s>(r.value().request);
+                break;
+            case NODES_DELETE:
+                {
+                    nodes_delete_s struc = std::get<nodes_delete_s>(r.value().request);
+                    ASSERT_EQ(struc.id, 0);
+                    ASSERT_FALSE(struc.id == 3.9);
+                }
+                break;
+            case NODES_GET:
+                {
+                    nodes_get_s struc = std::get<nodes_get_s>(r.value().request);
+                    ASSERT_EQ(struc.id, 0);
+                    ASSERT_FALSE(struc.id == 'A');
+                }
+                break;
+            case NODES_PUT_START:
+                {
+                    nodes_put_start_s struc = std::get<nodes_put_start_s>(r.value().request);
+                    ASSERT_EQ(struc.id, 0);
+                    ASSERT_FALSE(struc.id == 'a');
+                }
+                break;
+            case NODES_PUT_END:
+                {
+                    nodes_put_end_s struc = std::get<nodes_put_end_s>(r.value().request);
+                    ASSERT_EQ(struc.id, 0);
+                    ASSERT_FALSE(struc.id == 94);
+                }
+                break;
+        }
     }
 }
 
@@ -29,6 +63,29 @@ TEST(construct_request, edges) {
         ASSERT_EQ(r.value().type, type_results[i]);
         ASSERT_EQ(r.value().ePoint, EDGE);
         ASSERT_EQ(r.value().method, m_results[i]);
+
+        switch(r.value().type) {
+            case EDGES_GET:
+                edges_get_s struc = std::get<edges_get_s>(r.value().request);
+                ASSERT_EQ(struc.id, 0);
+                ASSERT_FALSE(struc.id == 3.9);
+                break;
+            case EDGES_POST:
+            {
+                edges_post_s struc = std::get<edges_post_s>(r.value().request);
+                ASSERT_EQ(struc.to, 1);
+                ASSERT_FALSE(struc.to == 3.9);
+                ASSERT_EQ(struc.from, 2);
+                ASSERT_FALSE(struc.from == '2');
+            }
+                break;
+            case EDGES_DELETE:
+            {
+                edges_delete_s struc = std::get<edges_delete_s>(r.value().request);
+                ASSERT_EQ(struc.id, 0);
+                ASSERT_FALSE(struc.id == 'A');
+            }
+        }
     }
 }
 
@@ -41,5 +98,35 @@ TEST(construct_request, state) {
         ASSERT_EQ(r.value().type, type_results[i]);
         ASSERT_EQ(r.value().ePoint, STATE);
         ASSERT_EQ(r.value().method, m_results[i]);
+
+
+        switch(r.value().type) {
+            case STATE_GET:
+                state_get_s struc = std::get<state_get_s>(r.value().request);
+                break;
+            case STATE_POST:
+            {
+                state_post_s struc = std::get<state_post_s>(r.value().request);
+                ASSERT_EQ(struc.active, 1);
+                ASSERT_FALSE(struc.active == 3.9);
+                ASSERT_EQ(struc.start, 1);
+                ASSERT_FALSE(struc.start == '2');
+                ASSERT_EQ(struc.end, 0);
+                ASSERT_FALSE(struc.end == '0');
+                ASSERT_FALSE(struc.end == '0');
+
+//                TODO: add some tests for the vectors
+                ASSERT_EQ(struc.nodes.size(), 2);
+                ASSERT_EQ(struc.edges.size(), 1);
+            }
+                break;
+            case STATE_PUT:
+            {
+                state_put_s struc = std::get<state_put_s>(r.value().request);
+                std::string input("a");
+                ASSERT_EQ(struc.input, input);
+                ASSERT_FALSE(struc.id == 'a');
+            }
+        }
     }
 }

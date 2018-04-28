@@ -15,7 +15,6 @@ using json = nlohmann::json;
 namespace nlohmann {
 
 //    just pipe a json into a request object and you either get a valid Request or nothing
-
     template<>
     struct adl_serializer<std::optional<Request>> {
 
