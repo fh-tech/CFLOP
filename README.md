@@ -232,7 +232,7 @@
               {
                 "id": 1,
                 "from": 0,
-                "to": 1,
+                "to": 1
               }
             ],
             "active": 1,
@@ -273,7 +273,7 @@
     ```
     
     
-####1.4 failed request
+#### 1.4 failed request
 for every call that fails you get following response with a message  
 ```json
     {

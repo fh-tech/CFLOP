@@ -19,13 +19,21 @@ add_library(fsm-lib
         src/fsm/Transition.h
         src/fsm/FinalStateMachine.h)
 
+add_library(input-lib
+        src/input/include/input.h
+        src/input/Request.h
+        src/input/extract_helper.h
+        src/input/request_types.h)
+
 include_directories(src/graph/include)
 include_directories(src/fsm/include)
+include_directories(src/input/include)
 
 set_target_properties(graph-lib PROPERTIES LINKER_LANGUAGE CXX)
-set_target_properties(fsm-lib PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(fsm-lib   PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(input-lib PROPERTIES LINKER_LANGUAGE CXX)
 
-target_link_libraries(CFLOP graph-lib fsm-lib)
+target_link_libraries(CFLOP graph-lib fsm-lib input-lib)
 
 ##########################################################
 add_subdirectory(libs/googletest/googletest)
@@ -39,3 +47,15 @@ target_link_libraries(graphlib-tests gtest graph-lib)
 add_executable(fsmlib-tests
         src/fsm/tests/tests.cpp)
 target_link_libraries(fsmlib-tests gtest fsm-lib)
+
+add_executable(inputlib-tests
+                src/input/test/tests.cpp
+#                src/input/test/edge_test.cpp
+                src/input/test/json_lohmann_test.cpp
+                src/input/test/node_test.cpp
+                src/input/test/state_tests.cpp
+                src/input/test/json_requests.cpp
+                src/input/test/req_type_test.cpp
+                src/input/test/request_test.cpp)
+
+target_link_libraries(inputlib-tests gtest input-lib)
