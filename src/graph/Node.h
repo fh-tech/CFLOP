@@ -23,7 +23,6 @@ public:
     }
 
     static node_id next_id() {
-        static size_t id = 0;
         return node_id{++id};
     }
 
@@ -33,10 +32,15 @@ public:
         return {0};
     }
 
+    node_id(size_t t): m_id(t) {
+        if(t > id) id = t;
+    }
+
 private:
-    node_id(size_t t): m_id(t) {}
+    static size_t id;
 };
 
+size_t node_id::id = 0;
 
 namespace std {
     template <>
@@ -49,6 +53,11 @@ namespace std {
 
 template <typename N>
 using node = std::pair<const node_id, N>;
+
+template <typename N>
+node<N> from_parts(const size_t& id, N val){
+    return {node_id(id), val};
+}
 
 template <typename N>
 node<N> make_node(N val){

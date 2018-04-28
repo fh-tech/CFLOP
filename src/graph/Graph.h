@@ -45,6 +45,16 @@ public:
         return  id;
     }
 
+    void insert_node(const node<N>& n){
+        nodes.insert(n);
+    }
+
+    void insert_edge(const edge<E>& e){
+        auto etup = std::pair(e.second.from, e.first);
+        edges.insert(e);
+        connections.insert(etup);
+    }
+
     edge<E>* get_edge(const edge_id& id){
         auto search = edges.find(id);
         if(search != edges.end()){
@@ -61,6 +71,14 @@ public:
         }
         return ret;
     };
+
+    std::vector<edge<E>> get_edges(){
+        return { edges.begin(), edges.end() };
+    }
+
+    std::vector<node<N>> get_nodes(){
+        return { nodes.begin(), nodes.end() };
+    }
 
     void remove(const node_id node) {
         nodes.erase(node);

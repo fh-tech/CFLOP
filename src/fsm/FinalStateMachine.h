@@ -62,6 +62,25 @@ public:
         graph.remove(id);
     }
 
+    node_id add_sate_form_parts(size_t& id, State& state){
+        auto n = from_parts<State>(id, state);
+        graph.insert_node(n);
+        return n.first;
+    }
+
+    edge_id add_transition_from_parts(size_t& id, Transition<char>& t, node_id to, node_id from) {
+        edge<Transition<char>> e = from_parts(id, t, to, from);
+        graph.insert_edge(e);
+        return e.first;
+    }
+
+    std::vector<edge<Transition<char>>> get_Transitions(){
+        return graph.get_edges();
+    }
+
+    std::vector<node<State>> get_States(){
+        return graph.get_nodes();
+    }
 
 private:
     Graph<State, Transition<char>> graph{};

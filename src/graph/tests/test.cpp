@@ -213,6 +213,36 @@ TEST(graph, remove_edge){
 
 }
 
+TEST(node, from_parts){
+
+    node<char> n = make_node('1');
+    node<char> n2 = make_node('2');
+
+    node<char> t1 = from_parts((size_t)n.first, '1');
+    node<char> t2 = from_parts((size_t)n2.first, '2');
+
+    ASSERT_EQ(n, t1);
+    ASSERT_EQ(n2, t2);
+}
+
+TEST(edge, from_parts){
+    auto n1 = make_node('1');
+    auto n2 = make_node('1');
+    auto n3 = make_node('1');
+    auto n4 = make_node('1');
+
+    auto e1 = make_edge(n1.first, n2.first, 1);
+    auto e2 = make_edge(n3.first, n1.first, 2);
+    auto e3 = make_edge(n4.first, n2.first, 3);
+
+    auto t1 = from_parts(1, 1, n1.first, n2.first);
+    auto t2 = from_parts(2, 2, n3.first, n1.first);
+    auto t3 = from_parts(3, 3, n4.first, n2.first);
+
+    ASSERT_EQ(e1, t1);
+    ASSERT_EQ(e2, t2);
+    ASSERT_EQ(e3, t3);
+}
 
 int main(int argc, char** argv){
     ::testing::InitGoogleTest(&argc, argv);

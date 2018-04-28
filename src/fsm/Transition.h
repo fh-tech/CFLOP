@@ -16,10 +16,21 @@ public:
         :t(t)
     {}
 
-    bool matches(T& other){
+    bool matches(T& other) const {
         return t == other;
     }
 
+    static Transition<T> from(T t){
+        return Transition(t);
+    }
+
+    T into(){
+        return t;
+    }
+
+    bool operator==(const Transition<T>& other) const {
+        return  t == other.t;
+    }
 };
 
 
