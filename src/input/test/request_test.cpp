@@ -149,3 +149,55 @@ TEST(construct_request, state) {
         }
     }
 }
+
+TEST(construct_request, invalid_json) {
+    json state_putINVALID_j =
+            R"({
+      "state": {
+        "put": {
+          "inputt": "a"
+        }
+      }
+    })"_json;
+
+    ASSERT_ANY_THROW(Request r = state_putINVALID_j);
+}
+
+TEST(construct_request, invalid_json2) {
+    json state_postINVALID_j =
+            R"({
+      "state":{
+        "post":{
+          "state": {
+            "nodes": [
+              {
+                "id": 0,
+                "edges": [1,2,3]
+              }, {
+                "id": 1,
+                "edges": [1,3]
+              }
+            ],
+            "edges":[
+              {
+                "id": 1,
+                "from": 0,
+                "to": 1
+              }
+            ],
+            "active": 1,
+            "start": 1,
+            "end": 0
+          }
+        }
+      }
+    })"_json;
+
+    try {
+        Request r = state_postINVALID_j;
+    }catch(std::runtime_error& e) {
+        ASSERT_EQ(e.what(), "invalid json_input");
+    }
+
+
+}
