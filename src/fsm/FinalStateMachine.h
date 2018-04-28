@@ -37,12 +37,21 @@ public:
         return this->current == this->end;
     }
 
-    node_id add_state(std::string &&name) {
+    node_id add_state(std::string&& name){
         return graph.add_node({std::move(name)});
     }
 
-    edge_id add_transition(node_id from, node_id to, Transition<char> t) {
+    edge_id add_transition(node_id from, node_id to, Transition<char> t){
         return graph.add_edge(from, to, std::move(t));
+    }
+
+    void set_start(node_id id){
+        this->start = id;
+        this->current = id;
+    }
+
+    void set_end(node_id id){
+        this->end = id;
     }
 
     void remove_node(node_id id) {
@@ -53,15 +62,6 @@ public:
         graph.remove(id);
     }
 
-    void set_start(node_id id) {
-        this->start = id;
-        this->current = id;
-    }
-
-    void set_end(node_id id) {
-        this->end = id;
-    }
-
 
 private:
     Graph<State, Transition<char>> graph{};
@@ -69,6 +69,7 @@ private:
     node_id end = node_id::invalid_node();
     node_id current = node_id::invalid_node();
 };
+
 
 
 #endif //CFLOP_FINALSTATEMACHINE_H
