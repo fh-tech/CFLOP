@@ -46,7 +46,7 @@ TEST(graph, connection){
     ASSERT_TRUE(res);
 }
 
-TEST(graph, remove){
+TEST(graph, remove_node){
     Graph<int, int> g{};
 
     auto id1 = g.add_node(1);
@@ -82,6 +82,29 @@ TEST(graph, remove){
     ASSERT_NE(g.get_node(id3), nullptr);
     ASSERT_NE(g.get_node(id4), nullptr);
 
+
+}
+
+TEST(graph, remove_edge){
+    Graph<int, int> g{};
+
+    auto nid1 = g.add_node(10);
+    auto nid2 = g.add_node(20);
+    auto nid3 = g.add_node(30);
+    auto nid4 = g.add_node(40);
+
+    auto eid1 = g.add_edge(nid1, nid2, 100);
+    auto eid2 = g.add_edge(nid2, nid3, 100);
+    auto eid3 = g.add_edge(nid1, nid3, 100);
+    auto eid4 = g.add_edge(nid4, nid1, 100);
+
+    auto adj1 = g.get_adjacent(nid1);
+    auto adj2 = g.get_adjacent(nid2);
+    auto adj3 = g.get_adjacent(nid3);
+    auto adj4 = g.get_adjacent(nid4);
+
+
+    ASSERT_EQ(1,1);
 
 }
 

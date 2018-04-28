@@ -28,7 +28,7 @@ public:
                 ));
     }
 
-    node<N>* get_node(node_id& id){
+    node<N>* get_node(const node_id& id){
         auto search = nodes.find(id);
         if(search != nodes.end()){
             return &(*search);
@@ -45,14 +45,14 @@ public:
         return  id;
     }
 
-    edge<E>* get_edge(edge_id& id){
+    edge<E>* get_edge(const edge_id& id){
         auto search = edges.find(id);
         if(search != edges.end()){
             return &(*search);
         } else return nullptr;
     }
 
-    std::vector<edge_id> get_adjacent(const node_id node) {
+    std::vector<edge_id> get_adjacent(const node_id& node) {
         auto [rbegin, rend] = connections.equal_range(node);
 
         std::vector<edge_id> ret{};
@@ -73,6 +73,12 @@ public:
             }
             else ++it;
         }
+    }
+
+    void remove(const edge_id id){
+        edge<E>* e = get_edge(id);
+        connections.erase(e->second.from);
+        edges.erase(id);
     }
 };
 
