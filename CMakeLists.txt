@@ -50,7 +50,7 @@ target_link_libraries(fsmlib-tests gtest fsm-lib)
 
 add_executable(inputlib-tests
                 src/input/test/tests.cpp
-#                src/input/test/edge_test.cpp
+                src/input/test/edge_test.cpp
                 src/input/test/json_lohmann_test.cpp
                 src/input/test/node_test.cpp
                 src/input/test/state_tests.cpp
