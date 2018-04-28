@@ -23,7 +23,10 @@ add_library(input-lib
         src/input/include/input.h
         src/input/Request.h
         src/input/extract_helper.h
-        src/input/request_types.h)
+        src/input/request_types.h
+        src/input/request_types.cpp
+        src/input/Request.cpp
+        src/input/extraxt_helper.cpp)
 
 include_directories(src/graph/include)
 include_directories(src/fsm/include)

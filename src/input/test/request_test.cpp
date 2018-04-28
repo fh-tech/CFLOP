@@ -19,6 +19,18 @@ TEST(construct_request, nodes) {
     }
 }
 
+TEST(construct_request, to_optional){
+    json j = R"(  {
+      "nodes": {
+        "patch": {}
+      }
+    })"_json;
+
+    std::optional<Request> r = j;
+
+    ASSERT_TRUE(!r.has_value());
+}
+
 
 TEST(construct_request, edges) {
     std::vector<req_type> type_results{EDGES_GET, EDGES_POST, EDGES_DELETE};
