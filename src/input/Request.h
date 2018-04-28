@@ -149,4 +149,7 @@ public:
              request(s)
     {};
 };
+
+static void to_json(json &j, const Request& r) {}
+static void from_json(const json &j, Request& r) {}
 #endif //CFLOP_REQUEST_H
