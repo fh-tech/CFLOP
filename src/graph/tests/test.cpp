@@ -82,29 +82,134 @@ TEST(graph, remove_node){
     ASSERT_NE(g.get_node(id3), nullptr);
     ASSERT_NE(g.get_node(id4), nullptr);
 
+}
 
+TEST(graph, check_adjacient){
+    Graph<int, int> g{};
+
+    auto nid1 = g.add_node(1);
+    auto nid2 = g.add_node(1);
+    auto nid3 = g.add_node(1);
+    auto nid4 = g.add_node(1);
+    auto nid5 = g.add_node(1);
+
+    auto eid1 = g.add_edge(nid1, nid2, 1);
+    auto eid2 = g.add_edge(nid2, nid3, 1);
+    auto eid3 = g.add_edge(nid4, nid3, 1);
+    auto eid4 = g.add_edge(nid4, nid1, 1);
+
+    auto eid5 = g.add_edge(nid5, nid1, 1);
+    auto eid6 = g.add_edge(nid2, nid5, 1);
+    auto eid7 = g.add_edge(nid3, nid5, 1);
+    auto eid8 = g.add_edge(nid4, nid5, 1);
+
+    auto adj1 = g.get_adjacent(nid1);
+    ASSERT_TRUE(std::is_permutation(adj1.begin(), adj1.end(), std::vector{eid1}.begin()));
+
+    auto adj2 = g.get_adjacent(nid2);
+    ASSERT_TRUE(std::is_permutation(adj2.begin(), adj2.end(), std::vector{eid2, eid6}.begin()));
+
+    auto adj3 = g.get_adjacent(nid3);
+    ASSERT_TRUE(std::is_permutation(adj3.begin(), adj3.end(), std::vector{eid7}.begin()));
+
+    auto adj4 = g.get_adjacent(nid4);
+    ASSERT_TRUE(std::is_permutation(adj4.begin(), adj4.end(), std::vector{eid3, eid8, eid4}.begin()));
+
+    auto adj5 = g.get_adjacent(nid5);
+    ASSERT_TRUE(std::is_permutation(adj5.begin(), adj5.end(), std::vector{eid5}.begin()));
+
+}
+
+TEST(graph, remove_node_adj){
+    Graph<int, int> g{};
+
+    auto nid1 = g.add_node(1);
+    auto nid2 = g.add_node(1);
+    auto nid3 = g.add_node(1);
+    auto nid4 = g.add_node(1);
+    auto nid5 = g.add_node(1);
+
+    auto eid1 = g.add_edge(nid1, nid2, 1);
+    auto eid2 = g.add_edge(nid2, nid3, 1);
+    auto eid3 = g.add_edge(nid4, nid3, 1);
+    auto eid4 = g.add_edge(nid4, nid1, 1);
+
+    auto eid5 = g.add_edge(nid5, nid1, 1);
+    auto eid6 = g.add_edge(nid2, nid5, 1);
+    auto eid7 = g.add_edge(nid3, nid5, 1);
+    auto eid8 = g.add_edge(nid4, nid5, 1);
+
+    g.remove(nid5);
+
+    auto adj1 = g.get_adjacent(nid1);
+    ASSERT_TRUE(std::is_permutation(adj1.begin(), adj1.end(), std::vector{eid1}.begin()));
+
+    auto adj2 = g.get_adjacent(nid2);
+    ASSERT_TRUE(std::is_permutation(adj2.begin(), adj2.end(), std::vector{eid2}.begin()));
+
+    auto adj3 = g.get_adjacent(nid3);
+    ASSERT_TRUE(std::is_permutation(adj3.begin(), adj3.end(), std::vector<edge_id>{}.begin()));
+
+    auto adj4 = g.get_adjacent(nid4);
+    ASSERT_TRUE(std::is_permutation(adj4.begin(), adj4.end(), std::vector{eid3, eid4}.begin()));
+
+    auto adj5 = g.get_adjacent(nid5);
+    ASSERT_TRUE(std::is_permutation(adj5.begin(), adj5.end(), std::vector<edge_id>{}.begin()));
 }
 
 TEST(graph, remove_edge){
     Graph<int, int> g{};
 
-    auto nid1 = g.add_node(10);
-    auto nid2 = g.add_node(20);
-    auto nid3 = g.add_node(30);
-    auto nid4 = g.add_node(40);
+    auto nid1 = g.add_node(1);
+    auto nid2 = g.add_node(1);
+    auto nid3 = g.add_node(1);
+    auto nid4 = g.add_node(1);
+    auto nid5 = g.add_node(1);
 
-    auto eid1 = g.add_edge(nid1, nid2, 100);
-    auto eid2 = g.add_edge(nid2, nid3, 100);
-    auto eid3 = g.add_edge(nid1, nid3, 100);
-    auto eid4 = g.add_edge(nid4, nid1, 100);
+    auto eid1 = g.add_edge(nid1, nid2, 1);
+    auto eid2 = g.add_edge(nid2, nid3, 1);
+    auto eid3 = g.add_edge(nid4, nid3, 1);
+    auto eid4 = g.add_edge(nid4, nid1, 1);
+
+    auto eid5 = g.add_edge(nid5, nid1, 1);
+    auto eid6 = g.add_edge(nid2, nid5, 1);
+    auto eid7 = g.add_edge(nid3, nid5, 1);
+    auto eid8 = g.add_edge(nid4, nid5, 1);
+
+    g.remove(eid8);
 
     auto adj1 = g.get_adjacent(nid1);
+    ASSERT_TRUE(std::is_permutation(adj1.begin(), adj1.end(), std::vector{eid1}.begin()));
+
     auto adj2 = g.get_adjacent(nid2);
+    ASSERT_TRUE(std::is_permutation(adj2.begin(), adj2.end(), std::vector{eid2, eid6}.begin()));
+
     auto adj3 = g.get_adjacent(nid3);
+    ASSERT_TRUE(std::is_permutation(adj3.begin(), adj3.end(), std::vector{eid7}.begin()));
+
     auto adj4 = g.get_adjacent(nid4);
+    ASSERT_TRUE(std::is_permutation(adj4.begin(), adj4.end(), std::vector{eid3, eid4}.begin()));
+
+    auto adj5 = g.get_adjacent(nid5);
+    ASSERT_TRUE(std::is_permutation(adj5.begin(), adj5.end(), std::vector{eid5}.begin()));
 
 
-    ASSERT_EQ(1,1);
+    g.remove(eid7);
+
+    auto adj11 = g.get_adjacent(nid1);
+    ASSERT_TRUE(std::is_permutation(adj11.begin(), adj11.end(), std::vector{eid1}.begin()));
+
+    auto adj12 = g.get_adjacent(nid2);
+    ASSERT_TRUE(std::is_permutation(adj12.begin(), adj12.end(), std::vector{eid2, eid6}.begin()));
+
+    auto adj13 = g.get_adjacent(nid3);
+    ASSERT_TRUE(std::is_permutation(adj13.begin(), adj13.end(), std::vector<edge_id>().begin()));
+
+    auto adj14 = g.get_adjacent(nid4);
+    ASSERT_TRUE(std::is_permutation(adj14.begin(), adj14.end(), std::vector{eid3, eid4}.begin()));
+
+    auto adj15 = g.get_adjacent(nid5);
+    ASSERT_TRUE(std::is_permutation(adj15.begin(), adj15.end(), std::vector{eid5}.begin()));
 
 }
 
