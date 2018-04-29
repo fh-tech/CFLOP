@@ -149,7 +149,7 @@
      ```json
         {
           "success": {
-            "node": { "id": 0 }
+            "edge": { "id": 0 }
           }
         }
      ```
