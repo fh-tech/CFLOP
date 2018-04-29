@@ -23,14 +23,14 @@ public:
             edge<Transition<char>> *e = graph.get_edge(e_id);
             if (e) {
                 if (e->second.val.matches(symbol)) {
-                    this->current = {e->second.to};
+                    this->current = { e->second.to };
                     graph.get_node(e->second.to)->second.visit();
-                    return current;
+
                 }
             }
         }
 
-
+        return current;
     }
 
     bool check_end() const {
