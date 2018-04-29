@@ -8,24 +8,45 @@
 //TODO: to/from json + structs mit entsprechenden daten füllen
 
 struct nodes_post_r_s {
-
+    size_t id;
 };
+static void to_json(json &j, const nodes_post_r_s &res) {
+    j["success"]["node"]["id"] = res.id;
+}
+static void from_json(const json &j, nodes_post_r_s &res) {}
 
-struct nodes_delete_r_s {
 
-};
+struct nodes_delete_r_s {};
+static void to_json(json &j, const nodes_delete_r_s &res) {
+    j["success"] = {};
+}
+static void from_json(const json &j, nodes_delete_r_s &res) {}
+
 
 struct nodes_get_r_s {
-
+    size_t id;
+    std::vector<edge> edges;
 };
+static void to_json(json &j, const nodes_get_r_s &res) {
+    j["success"]["node"]["id"] = res.id;
+    j["success"]["node"]["edges"] = res.edges;
+}
+static void from_json(const json &j, nodes_get_r_s &req) {}
 
-struct nodes_put_start_r_s {
 
-};
+struct nodes_put_start_r_s {};
+static void to_json(json &j, const nodes_put_start_r_s &res) {
+    j["success"] = {};
+}
+static void from_json(const json &j, nodes_put_start_r_s &req) {}
 
-struct nodes_put_end_r_s {
 
-};
+struct nodes_put_end_r_s {};
+static void to_json(json &j, const nodes_put_end_r_s &res) {
+    j["success"] = {};
+}
+static void from_json(const json &j, nodes_put_end_r_s &re
+
 
 struct edges_get_r_s {
 

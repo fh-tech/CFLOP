@@ -4,7 +4,7 @@ project(CFLOP)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(CFLOP
-        src/main.cpp src/output/Response.h)
+        src/main.cpp src/output/tests/tests.cpp)
 
 add_library(graph-lib
         src/graph/include/graph.h
@@ -25,15 +25,21 @@ add_library(input-lib
         src/input/extract_helper.h
         src/input/request_types.h)
 
+add_library(output-lib
+        src/output/include
+        src/output/response_types.h)
+
 include_directories(src/graph/include)
 include_directories(src/fsm/include)
 include_directories(src/input/include)
+include_directories(src/output/include)
 
 set_target_properties(graph-lib PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(fsm-lib   PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(input-lib PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(output-lib PROPERTIES LINKER_LANGUAGE CXX)
 
-target_link_libraries(CFLOP graph-lib fsm-lib input-lib)
+target_link_libraries(CFLOP graph-lib fsm-lib input-lib output-lib)
 
 ##########################################################
 add_subdirectory(libs/googletest/googletest)
@@ -59,3 +65,8 @@ add_executable(inputlib-tests
                 src/input/test/request_test.cpp)
 
 target_link_libraries(inputlib-tests gtest input-lib)
+
+add_executable(outputlib-tests
+            src/output/tests/tests.cpp)
+
+target_link_libraries(outputlib-tests gtest output-lib)
