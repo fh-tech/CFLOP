@@ -4,7 +4,7 @@ project(CFLOP)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(CFLOP
-        src/main.cpp)
+        src/main.cpp src/output/Response.h)
 
 add_library(graph-lib
         src/graph/include/graph.h
