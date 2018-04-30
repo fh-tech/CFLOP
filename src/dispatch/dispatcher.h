@@ -2,8 +2,8 @@
 // Created by vik on 29.04.18.
 //
 
-#ifndef CFLOP_DISPATCH_H
-#define CFLOP_DISPATCH_H
+#ifndef CFLOP_DISPATCHER_H
+#define CFLOP_DISPATCHER_H
 
 #include "../input/include/input.h"
 #include "../fsm/include/fsm.h"
@@ -106,4 +106,4 @@ json dispatch(Request& r, FinalStateMachine& fsm) {
     return j;
 }
 
-#endif //CFLOP_DISPATCH_H
+#endif //CFLOP_DISPATCHER_H
