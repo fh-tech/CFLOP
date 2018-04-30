@@ -6,15 +6,14 @@
 #define CFLOP_STATE_H
 
 class State {
-private:
-    std::string name;
-public:
-    State(std::string&& name)
-        : name(std::move(name))
-    {}
 
-    void visit(){
-        std::cout << "Visited state " << name << std::endl;
+public:
+    State()
+    {}
+    void visit(){}
+
+    bool operator==(const State other) const {
+        return true;
     }
 };
 

@@ -15,6 +15,15 @@ public:
 
     FinalStateMachine() = default;
 
+    FinalStateMachine(std::vector<node<State>> nodes,
+                      std::vector<edge<Transition<char>>> edges,
+                      node_id start, node_id end, node_id current)
+        : graph(nodes, edges)
+        , start(start)
+        , end(end)
+        , current(current)
+    {}
+
     node_id advance(char symbol) {
 
         auto next = graph.get_adjacent(this->current);
@@ -37,8 +46,8 @@ public:
         return this->current == this->end;
     }
 
-    node_id add_state(std::string&& name){
-        return graph.add_node({std::move(name)});
+    node_id add_state(){
+        return graph.add_node(State{});
     }
 
     edge_id add_transition(node_id from, node_id to, Transition<char> t){
@@ -52,6 +61,18 @@ public:
 
     void set_end(node_id id){
         this->end = id;
+    }
+
+   node_id get_start(){
+       return this->start;
+    }
+
+   node_id get_end(){
+       return this->end;
+    }
+
+    node_id get_current(){
+        return this->current;
     }
 
     void remove_node(node_id id) {
@@ -80,6 +101,21 @@ public:
 
     std::vector<node<State>> get_States(){
         return graph.get_nodes();
+    }
+
+    node<State>* get_state(const node_id& id){
+        return graph.get_node(id);
+    }
+
+    edge<Transition<char>>* get_transtion(const edge_id& id){
+        return graph.get_edge(id);
+    }
+
+    bool operator==(const FinalStateMachine& other){
+        return graph == other.graph
+            && start == other.start
+            && end == other.end
+            && current == other.current;
     }
 
 private:

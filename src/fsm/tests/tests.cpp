@@ -9,10 +9,10 @@
 TEST(fsm, test_export){
     FinalStateMachine fsm{};
 
-    node_id s1 = fsm.add_state("Even Zero : Even One");
-    node_id s2 = fsm.add_state("Odd  Zero : Even One");
-    node_id s3 = fsm.add_state("Even Zero : Odd  One");
-    node_id s4 = fsm.add_state("Odd  Zero : Odd  One");
+    node_id s1 = fsm.add_state();
+    node_id s2 = fsm.add_state();
+    node_id s3 = fsm.add_state();
+    node_id s4 = fsm.add_state();
 
     edge_id e1 = fsm.add_transition(s1, s3, Transition<char>{'1'});
     edge_id e2 = fsm.add_transition(s1, s2, Transition<char>{'0'});
@@ -57,10 +57,10 @@ TEST(test, tester){
 TEST(fsm, test_run){
     FinalStateMachine fsm{};
 
-    node_id s1 = fsm.add_state("Even Zero : Even One");
-    node_id s2 = fsm.add_state("Odd  Zero : Even One");
-    node_id s3 = fsm.add_state("Even Zero : Odd  One");
-    node_id s4 = fsm.add_state("Odd  Zero : Odd  One");
+    node_id s1 = fsm.add_state();
+    node_id s2 = fsm.add_state();
+    node_id s3 = fsm.add_state();
+    node_id s4 = fsm.add_state();
 
     edge_id e1 = fsm.add_transition(s1, s3, Transition<char>{'1'});
     edge_id e2 = fsm.add_transition(s1, s2, Transition<char>{'0'});
@@ -97,6 +97,40 @@ TEST(fsm, test_run){
     ASSERT_FALSE(fsm.check_end());
     fsm.advance('1');
     ASSERT_TRUE(fsm.check_end());
+
+}
+
+TEST(fsm, equality){
+
+
+    FinalStateMachine fsm1{};
+    auto s11 = fsm1.add_state();
+    auto s12 = fsm1.add_state();
+    auto s13 = fsm1.add_state();
+
+    auto t11 = fsm1.add_transition(s11, s12, 'a');
+    auto t12 = fsm1.add_transition(s13, s12, 'b');
+
+    FinalStateMachine fsm2{};
+    auto s21 = fsm1.add_state();
+    auto s22 = fsm1.add_state();
+    auto s23 = fsm1.add_state();
+
+    auto t21 = fsm1.add_transition(s21, s22, 'a');
+    auto t22 = fsm1.add_transition(s23, s22, 'b');
+
+    ASSERT_FALSE(fsm1 == fsm2);
+
+    auto edges = fsm1.get_Transitions();
+    auto nodes = fsm1.get_States();
+    auto current = fsm1.get_current();
+    auto start = fsm1.get_start();
+    auto end = fsm1.get_end();
+
+    FinalStateMachine fsm3(nodes, edges, start, end, current);
+
+    ASSERT_TRUE(fsm1 == fsm3);
+
 
 }
 

@@ -21,6 +21,15 @@ private:
 public:
     Graph() = default;
 
+    Graph(std::vector<node<N>> nodes, std::vector<edge<E>> edges)
+        : nodes(nodes.begin(), nodes.end())
+        , edges(edges.begin(), edges.end())
+    {
+        for(auto &e: edges){
+            connections.emplace(e.second.from, e.first);
+        }
+    }
+
     node_id add_node(N &&val){
         return std::get<0>(
                 *std::get<0>(
@@ -97,6 +106,12 @@ public:
         edge<E>* e = get_edge(id);
         connections.erase(e->second.from);
         edges.erase(id);
+    }
+
+    bool operator==(const Graph& other){
+        return nodes == other.nodes
+            && edges == other.edges
+            && connections == other.connections;
     }
 };
 
