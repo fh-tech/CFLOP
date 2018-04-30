@@ -91,9 +91,13 @@ Response dispatch(Request& r, FinalStateMachine& fsm) {
             break;
         case EDGES_POST: {
             auto req = std::get<edges_post_s>(r.request);
-            size_t id = fsm.add_transition(req.from, req.to, req.transition);
-            edges_post_r_s res{id};
-            j = res;
+            size_t id = fsm.add_transition(req.from, req.to, Transition::from(req.transition));
+            if(id) {
+                edges_post_r_s res{id};
+                j = res;
+            } else {
+                // something went wrong... one of the nodes does not exists
+            }
         }
             break;
         case EDGES_DELETE: {
@@ -105,11 +109,38 @@ Response dispatch(Request& r, FinalStateMachine& fsm) {
             break;
         case STATE_GET: {
             auto req = std::get<state_get_s>(r.request);
+            auto edges_fsm = fsm.get_Transitions();
+            std::vector<edge> edges{};
+            // transform an fsm_edge vector into a input-lib edge vector
+            std::transform(edges_fsm.begin(), edges_fsm.end(), edges.begin(), [](edge fsm_edge) -> edge {
+                return edge(fsm_edge.to, fsm_edge.from, fsm_edge.transition.into);
+            });
+            auto nodes_fsm = fsm.get_States();
+            std::vector<node> nodes{};
+            std::transform(nodes_fsm.begin(), nodes_fsm.end(), nodes.begin(), [](node fsm_node) -> node {
+                std::vector<edge_id> edges{};
+                fsm.get_adjacient_transitions(fsm_node.first);
+                std::vector<size_t> edges_size_t = {edges.begin(), edges.end()};
+                return node(fsm_node.id, edges_size_t);
+            });
+            size_t active = fsm.get_current();
+            size_t start = fsm.get_start();
+            size_t end = fsm.get_end();
+            state_get_r_s res{nodes, edges, active, start, end};
         }
             break;
         case STATE_POST: {
             auto req = std::get<state_post_s>(r.request);
+            std::vector<node> nodes = req.nodes;
+            std::vector<edge> edges{} = req.edges;
+            size_t active = req.active;
+            size_t start = req.start;
+            size_t end = req.end;
 
+            fsm.add
+
+            state_post_r_s res{};
+            j = res;
         }
             break;
         case STATE_PUT: {

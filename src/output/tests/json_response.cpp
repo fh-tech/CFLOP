@@ -3,7 +3,7 @@
 //
 
 #include "json_response.h"
-
+nodes_post_r_s rs{1};
 json nodes_post_r_j =
     R"({
       "success": {

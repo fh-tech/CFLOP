@@ -6,8 +6,14 @@
 
 
 #include <gtest/gtest.h>
+#include "json_response.h"
+#include "../include/output.h"
+
+
 
 TEST(to_json, to_json_node) {
+    for(int i = 0; i < node_r_j_vec.size(); i++) {
 
+    }
 
 }
