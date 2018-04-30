@@ -36,6 +36,9 @@ public:
         if(t > id) id = t;
     }
 
+    static void reset(){
+        id = 0;
+    }
 private:
     static size_t id;
 };
