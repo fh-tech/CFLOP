@@ -33,6 +33,10 @@ struct edge_id {
         if(t > id) id = t;
     }
 
+    static edge_id invalid(){
+        return { 0 };
+    }
+
     static void reset(){
         id = 0;
     }

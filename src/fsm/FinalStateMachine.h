@@ -89,14 +89,12 @@ public:
 
     node_id add_sate_form_parts(size_t& id, State& state){
         auto n = from_parts<State>(id, state);
-        graph.insert_node(n);
-        return n.first;
+        return graph.insert_node(n);
     }
 
-    edge_id add_transition_from_parts(size_t& id, Transition<std::string>& t, node_id to, node_id from) {
-        edge<Transition<std::string>> e = from_parts(id, t, to, from);
-        graph.insert_edge(e);
-        return e.first;
+    edge_id add_transition_from_parts(size_t& id, Transition<std::string>& t, size_t to, size_t from) {
+        edge<Transition<std::string>> e = from_parts(id, t, node_id{to}, node_id{from});
+        return graph.insert_edge(e);
     }
 
     std::vector<edge<Transition<std::string>>> get_Transitions(){
@@ -116,9 +114,9 @@ public:
     }
 
     bool operator==(const FinalStateMachine& other){
-        return graph == other.graph
-            && start == other.start
-            && end == other.end
+        return graph   == other.graph
+            && start   == other.start
+            && end     == other.end
             && current == other.current;
     }
 

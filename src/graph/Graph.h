@@ -54,14 +54,21 @@ public:
         return  id;
     }
 
-    void insert_node(const node<N>& n){
+    node_id insert_node(const node<N>& n){
         nodes.insert(n);
+        return n.first;
     }
 
-    void insert_edge(const edge<E>& e){
+    edge_id insert_edge(const edge<E>& e){
         auto etup = std::pair(e.second.from, e.first);
-        edges.insert(e);
-        connections.insert(etup);
+        if(get_node(e.second.from) && get_node(e.second.to)) {
+            edges.insert(e);
+            connections.insert(etup);
+            return e.first;
+        } else {
+            return edge_id::invalid();
+        }
+
     }
 
     edge<E>* get_edge(const edge_id& id){
