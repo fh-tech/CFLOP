@@ -83,6 +83,10 @@ public:
         graph.remove(id);
     }
 
+    std::vector<edge_id> get_adjacient_transitions(const node_id& id){
+        return graph.get_adjacent(id);
+    }
+
     node_id add_sate_form_parts(size_t& id, State& state){
         auto n = from_parts<State>(id, state);
         graph.insert_node(n);
