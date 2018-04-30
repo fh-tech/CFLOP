@@ -100,6 +100,40 @@ TEST(fsm, test_run){
 
 }
 
+TEST(fsm, equality){
+
+
+    FinalStateMachine fsm1{};
+    auto s11 = fsm1.add_state();
+    auto s12 = fsm1.add_state();
+    auto s13 = fsm1.add_state();
+
+    auto t11 = fsm1.add_transition(s11, s12, 'a');
+    auto t12 = fsm1.add_transition(s13, s12, 'b');
+
+    FinalStateMachine fsm2{};
+    auto s21 = fsm1.add_state();
+    auto s22 = fsm1.add_state();
+    auto s23 = fsm1.add_state();
+
+    auto t21 = fsm1.add_transition(s21, s22, 'a');
+    auto t22 = fsm1.add_transition(s23, s22, 'b');
+
+    ASSERT_FALSE(fsm1 == fsm2);
+
+    auto edges = fsm1.get_Transitions();
+    auto nodes = fsm1.get_States();
+    auto current = fsm1.get_current();
+    auto start = fsm1.get_start();
+    auto end = fsm1.get_end();
+
+    FinalStateMachine fsm3(nodes, edges, start, end, current);
+
+    ASSERT_TRUE(fsm1 == fsm3);
+
+
+}
+
 int main(int argc, char** argv){
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

@@ -15,6 +15,15 @@ public:
 
     FinalStateMachine() = default;
 
+    FinalStateMachine(std::vector<node<State>> nodes,
+                      std::vector<edge<Transition<char>>> edges,
+                      node_id start, node_id end, node_id current)
+        : graph(nodes, edges)
+        , start(start)
+        , end(end)
+        , current(current)
+    {}
+
     node_id advance(char symbol) {
 
         auto next = graph.get_adjacent(this->current);
@@ -54,6 +63,18 @@ public:
         this->end = id;
     }
 
+   node_id get_start(){
+       return this->start;
+    }
+
+   node_id get_end(){
+       return this->end;
+    }
+
+    node_id get_current(){
+        return this->current;
+    }
+
     void remove_node(node_id id) {
         graph.remove(id);
     }
@@ -88,6 +109,13 @@ public:
 
     edge<Transition<char>>* get_transtion(const edge_id& id){
         return graph.get_edge(id);
+    }
+
+    bool operator==(const FinalStateMachine& other){
+        return graph == other.graph
+            && start == other.start
+            && end == other.end
+            && current == other.current;
     }
 
 private:

@@ -11,6 +11,10 @@ public:
     State()
     {}
     void visit(){}
+
+    bool operator==(const State other) const {
+        return true;
+    }
 };
 
 
