@@ -5,7 +5,8 @@
 #ifndef CFLOP_JSON_RESPONSE_H
 #define CFLOP_JSON_RESPONSE_H
 
-#include "include/output.h"
+#include "../../../libs/json/single_include/nlohmann/json.hpp"
+using json = nlohmann::json;
 
 extern json nodes_post_r_j;
 extern json nodes_delete_r_j;

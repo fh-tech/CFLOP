@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <input.h>
+#include "json_requests.h"
 
 /**
  * Escaped string for json library
@@ -53,4 +54,24 @@ TEST(json, test4) {
 
     ASSERT_EQ(j["nodes"]["put"]["start"]["id"], 0);
     ASSERT_FALSE(3 == j["nodes"]["put"]["start"]["id"]);
+}
+
+TEST(json, test_equal) {
+    json j = nodes_j_vec[0];
+    json j2 =  R"(  {
+      "nodes": {
+        "post": {}
+      }
+    })"_json;
+    ASSERT_EQ(j, j2);
+}
+
+TEST(json, test_not_equal) {
+    json j = nodes_j_vec[1];
+    json j2 =  R"(  {
+      "nodes": {
+        "post": {}
+      }
+    })"_json;
+    ASSERT_FALSE(j == j2);
 }

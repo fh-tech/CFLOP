@@ -10,8 +10,6 @@
 #include "../output/include/output.h"
 
 
-//TODO: function that takes a Request Object, a FinalStateMachine Object and makes a Response object out of it
-
 /**
  * decides what the request does executes it on the fsm, generates a response transforms it to json and returns it
  * @param r the request object generated out of a json

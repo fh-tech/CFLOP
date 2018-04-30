@@ -26,6 +26,6 @@ TEST(convert_endpoint, convert_state) {
 }
 
 TEST(convert_endpoint, invalid_endpoint) {
-    const giendpoint e = INVALID_ENDPOINT;
+    const endpoint e = INVALID_ENDPOINT;
     ASSERT_EQ("invalid", convert_endpoint(e));
 }
