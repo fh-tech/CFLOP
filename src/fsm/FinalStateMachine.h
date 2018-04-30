@@ -82,6 +82,14 @@ public:
         return graph.get_nodes();
     }
 
+    node<State>* get_state(const node_id& id){
+        return graph.get_node(id);
+    }
+
+    edge<Transition<char>>* get_transtion(const edge_id& id){
+        return graph.get_edge(id);
+    }
+
 private:
     Graph<State, Transition<char>> graph{};
     node_id start = node_id::invalid_node();

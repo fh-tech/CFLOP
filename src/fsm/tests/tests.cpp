@@ -9,10 +9,10 @@
 TEST(fsm, test_export){
     FinalStateMachine fsm{};
 
-    node_id s1 = fsm.add_state("Even Zero : Even One");
-    node_id s2 = fsm.add_state("Odd  Zero : Even One");
-    node_id s3 = fsm.add_state("Even Zero : Odd  One");
-    node_id s4 = fsm.add_state("Odd  Zero : Odd  One");
+    node_id s1 = fsm.add_state();
+    node_id s2 = fsm.add_state();
+    node_id s3 = fsm.add_state();
+    node_id s4 = fsm.add_state();
 
     edge_id e1 = fsm.add_transition(s1, s3, Transition<char>{'1'});
     edge_id e2 = fsm.add_transition(s1, s2, Transition<char>{'0'});
@@ -57,10 +57,10 @@ TEST(test, tester){
 TEST(fsm, test_run){
     FinalStateMachine fsm{};
 
-    node_id s1 = fsm.add_state("Even Zero : Even One");
-    node_id s2 = fsm.add_state("Odd  Zero : Even One");
-    node_id s3 = fsm.add_state("Even Zero : Odd  One");
-    node_id s4 = fsm.add_state("Odd  Zero : Odd  One");
+    node_id s1 = fsm.add_state();
+    node_id s2 = fsm.add_state();
+    node_id s3 = fsm.add_state();
+    node_id s4 = fsm.add_state();
 
     edge_id e1 = fsm.add_transition(s1, s3, Transition<char>{'1'});
     edge_id e2 = fsm.add_transition(s1, s2, Transition<char>{'0'});
