@@ -43,6 +43,7 @@ json edges_get_r_j =
           "id": 0,
           "from": 1,
           "to": 2,
+          "transition": "a"
         }
       }
     })";

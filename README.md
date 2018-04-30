@@ -129,6 +129,7 @@
           "id": 0,
           "from": 1,
           "to": 2,
+          "transition": "a"
         }
       }
     }
@@ -140,7 +141,8 @@
       "edges":{
         "post":{
           "to": 1,
-          "from": 2
+          "from": 2,
+          "transition": "a"
         }
       }
     }
