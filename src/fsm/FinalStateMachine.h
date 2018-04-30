@@ -37,8 +37,8 @@ public:
         return this->current == this->end;
     }
 
-    node_id add_state(std::string&& name){
-        return graph.add_node({std::move(name)});
+    node_id add_state(){
+        return graph.add_node(State{});
     }
 
     edge_id add_transition(node_id from, node_id to, Transition<char> t){
