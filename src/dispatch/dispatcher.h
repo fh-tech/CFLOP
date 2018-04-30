@@ -53,10 +53,9 @@ Response dispatch(Request& r, FinalStateMachine& fsm) {
 
             if(node_pair) {
                 size_t id = node_pair->first;
-                std::vector<edge_id> edges = node_pair->second;
-                //hier casten von edge_id auf size_t?
-                nodes_get_r_s res{id, edges};
-
+                std::vector<edge_id> edges = fsm.get_adjacient_transitions(id);
+                std::vector<size_t> edges_size_t = {edges.begin(), edges.end()};
+                nodes_get_r_s res{id, edges_size_t};
             } else {
                 // INVALID gleich wie INVALID TYPE
                 // Node with id ... does not exist.
@@ -80,13 +79,12 @@ Response dispatch(Request& r, FinalStateMachine& fsm) {
         }
             break;
         case EDGES_GET: {
-            //TODO: something still wrong here  -- transition still missing on edge_get_r_s
             auto req = std::get<edges_get_s>(r.request);
             auto edge_pair = fsm.get_transtion(req.id);
             size_t id = edge_pair->first;
-            size_t from = edge_pair->second
-            size_t to = edge_pair->second
-            std::string transition = edge_pair->second;
+            size_t from = edge_pair->second.from;
+            size_t to = edge_pair->second.to;
+            std::string transition = edge_pair->second.val.into();
             edges_get_r_s res{id, from, to, transition};
             j = res;
         }

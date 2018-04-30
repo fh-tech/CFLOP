@@ -3,3 +3,11 @@
 //
 
 //TODO: test tojson methods
+
+
+#include <gtest/gtest.h>
+
+TEST(to_json, to_json_node) {
+
+
+}

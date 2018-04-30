@@ -17,7 +17,7 @@ using json = nlohmann::json;
  * @return
  */
 inline endpoint extract_endpoint(const json& j) {
-    //TODO: comparison with != nullptr necessary implicit conversion to boolean not possible
+    //j.find returns iterator if != j.end() we found it
     if(j.find("nodes") != j.end()) return NODE;
     if(j.find("edges") != j.end()) return EDGE;
     if(j.find("state") != j.end()) return STATE;
@@ -50,12 +50,11 @@ inline std::string convert_endpoint(const endpoint& e) {
  */
 inline req_method extract_req_method(const json& j, const endpoint& e) {
     std::string endP_s = convert_endpoint(e);
-
+    //j.find returns iterator if != j.end() we found it
     if(j[endP_s].find("get") != j[endP_s].end()) return GET;
     if(j[endP_s].find("put") != j[endP_s].end()) return PUT;
     if(j[endP_s].find("post") != j[endP_s].end()) return POST;
     if(j[endP_s].find("delete") != j[endP_s].end()) return DELETE;
-    //TODO:    again comparison with != nullptr is necessary
     return INVALID_METHOD;
 }
 

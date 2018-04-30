@@ -106,3 +106,23 @@ json failure_r_j =
       }
     })";
 
+std::vector<json> node_r_j_vec = {
+        nodes_post_r_j,
+        nodes_delete_r_j,
+        nodes_get_r_j,
+        nodes_put_start_r_j,
+        nodes_put_end_r_j
+};
+
+std::vector<json> edge_r_j_vec {
+        edges_get_r_j,
+        edges_post_r_j,
+        edges_delete_r_j
+};
+
+std::vector<json> state_r_j_vec {
+        state_get_r_j,
+        state_post_r_j,
+        state_put_r_j
+};
+

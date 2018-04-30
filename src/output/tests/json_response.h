@@ -24,4 +24,8 @@ extern json state_put_r_j;
 
 extern json failure_r_j;
 
+extern std::vector<json> node_r_j_vec;
+extern std::vector<json> edge_r_j_vec;
+extern std::vector<json> state_r_j_vec;
+
 #endif //CFLOP_JSON_RESPONSE_H
