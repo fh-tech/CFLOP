@@ -56,11 +56,13 @@ struct edges_get_r_s {
     size_t id;
     size_t from;
     size_t to;
+    std::string transition;
 };
 static void to_json(json &j, const edges_get_r_s &res) {
     j["success"]["edge"]["id"] = res.id;
     j["success"]["edge"]["from"] = res.from;
-    j["success"]["edge"]["ro"] = res.to;
+    j["success"]["edge"]["to"] = res.to;
+    j["success"]["edge"]["transition"] = res.transition;
 }
 static void from_json(const json &j, edges_get_r_s &res) {}
 

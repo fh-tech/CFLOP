@@ -28,7 +28,6 @@ json dispatch(Request& r, FinalStateMachine& fsm) {
         case NODES_POST: {
             // get the struct from the request
             auto req = std::get<nodes_post_s>(r.request);
-            //TODO: warum std::string übergeben
             size_t id = fsm.add_state();
             // build the response struct with the return value of fsm
             nodes_post_r_s res{id};
@@ -46,8 +45,11 @@ json dispatch(Request& r, FinalStateMachine& fsm) {
             break;
         case NODES_GET: {
             auto req = std::get<nodes_get_s>(r.request);
-            fsm.get_States();
-            //TODO: how to get a node?
+            auto node_pair = fsm.get_state(req.id);
+            size_t id = node_pair->first;
+            //TODO: ?
+            std::vector<edge> edges = node_pair->second;
+            nodes_get_r_s res{};
         }
             break;
         case NODES_PUT_START: {
@@ -67,9 +69,15 @@ json dispatch(Request& r, FinalStateMachine& fsm) {
         }
             break;
         case EDGES_GET: {
+            //TODO: something still wrong here  -- transition still missing on edge_get_r_s
             auto req = std::get<edges_get_s>(r.request);
-            fsm.get_Transitions();
-            //TODO how to get one edge
+            auto edge_pair = fsm.get_transtion(req.id);
+            size_t id = edge_pair->first;
+            size_t from = edge_pair->second
+            size_t to = edge_pair->second
+            std::string transition = edge_pair->second;
+            edges_get_r_s res{id, from, to, transition};
+            j = res;
         }
             break;
         case EDGES_POST: {
