@@ -11,19 +11,34 @@
 using json = nlohmann::json;
 
 struct node {
-//    node() = default;
-
     size_t id;
     std::vector<size_t> edges{};
 };
+static void to_json(json &j, const node& n) {
+    j["id"] = n.id;
+    j["edges"] = n.edges;
+}
+static void from_json(const json &j, node& n) {
+    n.id = j.at("id").get<size_t>();
+    n.edges = j.at("edges").get<std::vector<size_t>>();
+}
+
 
 struct edge {
-//    edge() = default;
-
     size_t id;
     size_t from;
     size_t to;
 };
+static void to_json(json &j, const edge& e) {
+    j["id"] = e.id;
+    j["from"] = e.from;
+    j["to"] = e.to;
+}
+static void from_json(const json &j, edge& e) {
+    e.id = j.at("id").get<size_t>();
+    e.from = j.at("from").get<size_t>();
+    e.to = j.at("to").get<size_t>();
+}
 
 //** NODES TYPES **//
 struct nodes_post_s {};
@@ -69,19 +84,5 @@ struct state_post_s {
 struct state_put_s {
     std::string input;
 };
-
-
-static void to_json(json &j, const edge& e) {}
-static void from_json(const json &j, edge& e) {
-    e.id = j.at("id").get<size_t>();
-    e.from = j.at("from").get<size_t>();
-    e.to = j.at("to").get<size_t>();
-}
-
-static void to_json(json &j, const node& n) {}
-static void from_json(const json &j, node& n) {
-    n.id = j.at("id").get<size_t>();
-    n.edges = j.at("edges").get<std::vector<size_t>>();
-}
 
 #endif //CFLOP_REQUEST_TYPES_H
