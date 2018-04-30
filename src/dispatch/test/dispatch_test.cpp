@@ -6,13 +6,13 @@
 #include "../include/dispatch.h"
 #include "requests.h"
 
+//TODO: respone umbauen und alle testen
 
 // tests all nodes end to end
 TEST(dispatch, test_dispatch_nodes) {
     FinalStateMachine fsm();
-    std::vector<json> expected;
+    std::vector<Response> expected;
     for(int i = 0; i < nodes_req_vec.size(); i++) {
         json j = dispatch(nodes_req_vec[i], fsm);
     }
-
 }

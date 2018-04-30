@@ -74,7 +74,7 @@ target_link_libraries(inputlib-tests gtest input-lib)
 add_executable(outputlib-tests
             src/output/tests/tests.cpp
             src/output/tests/json_response.cpp
-            src/input/test/json_requests.cpp)
+            src/input/test/json_requests.cpp src/output/tests/to_json_test.cpp)
 target_link_libraries(outputlib-tests gtest output-lib)
 
 add_executable(dispatchlib-tests

@@ -5,7 +5,6 @@
 #ifndef CFLOP_RESPONSE_TYPES_H
 #define CFLOP_RESPONSE_TYPES_H
 
-//TODO: to/from json + structs mit entsprechenden daten füllen
 #include "../../../libs/json/single_include/nlohmann/json.hpp"
 #include "../input/include/input.h"
 using json = nlohmann::json;
@@ -29,7 +28,7 @@ static void from_json(const json &j, nodes_delete_r_s &res) {}
 
 struct nodes_get_r_s {
     size_t id;
-    std::vector<edge> edges;
+    std::vector<size_t> edges;
 };
 static void to_json(json &j, const nodes_get_r_s &res) {
     j["success"]["node"]["id"] = res.id;

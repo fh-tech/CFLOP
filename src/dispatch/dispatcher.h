@@ -16,7 +16,12 @@
  * @param fsm a fsm object
  * @return json response
  */
-json dispatch(Request& r, FinalStateMachine& fsm) {
+
+//TODO: in output-lib Response + Response tojson()
+//TODO: auf Reponse umschreiben
+
+
+Response dispatch(Request& r, FinalStateMachine& fsm) {
     json j;
     switch(r.type) {
         case INVALID_TYPE: {
@@ -32,12 +37,11 @@ json dispatch(Request& r, FinalStateMachine& fsm) {
             // build the response struct with the return value of fsm
             nodes_post_r_s res{id};
             // make json from that
-            j = res;
+            Response()
         }
             break;
         case NODES_DELETE: {
             auto req = std::get<nodes_delete_s>(r.request);
-            //TODO: delete can not fail?
             fsm.remove_node(req.id);
             nodes_delete_r_s res{};
             j = res;
@@ -46,10 +50,17 @@ json dispatch(Request& r, FinalStateMachine& fsm) {
         case NODES_GET: {
             auto req = std::get<nodes_get_s>(r.request);
             auto node_pair = fsm.get_state(req.id);
-            size_t id = node_pair->first;
-            //TODO: ?
-            std::vector<edge> edges = node_pair->second;
-            nodes_get_r_s res{};
+
+            if(node_pair) {
+                size_t id = node_pair->first;
+                std::vector<edge_id> edges = node_pair->second;
+                //hier casten von edge_id auf size_t?
+                nodes_get_r_s res{id, edges};
+
+            } else {
+                // INVALID gleich wie INVALID TYPE
+                // Node with id ... does not exist.
+            }
         }
             break;
         case NODES_PUT_START: {
