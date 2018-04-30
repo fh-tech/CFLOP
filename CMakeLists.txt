@@ -4,14 +4,13 @@ project(CFLOP)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(CFLOP
-        src/main.cpp src/output/tests/tests.cpp src/output/include/output.h src/output/json_response.h src/output/json_response.cpp)
+        src/main.cpp)
 
 add_library(graph-lib
         src/graph/include/graph.h
         src/graph/Node.h
         src/graph/Edge.h
-        src/graph/Graph.h
-        )
+        src/graph/Graph.h)
 
 add_library(fsm-lib
         src/fsm/include/fsm.h
@@ -26,20 +25,27 @@ add_library(input-lib
         src/input/request_types.h src/output/include/output.h)
 
 add_library(output-lib
-        src/output/include
-        src/output/response_types.h src/output/json_response.cpp)
+        src/output/include/output.h
+        src/output/response_types.h
+        src/output/json_response.cpp)
+
+add_library(dispatch-lib
+        src/dispatch/include/dispatch.h
+        src/dispatch/dispatch.h)
 
 include_directories(src/graph/include)
 include_directories(src/fsm/include)
 include_directories(src/input/include)
 include_directories(src/output/include)
+include_directories(src/dispatch/include)
 
 set_target_properties(graph-lib PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(fsm-lib   PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(input-lib PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(output-lib PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(dispatch-lib PROPERTIES LINKER_LANGUAGE CXX)
 
-target_link_libraries(CFLOP graph-lib fsm-lib input-lib output-lib)
+target_link_libraries(CFLOP graph-lib fsm-lib input-lib output-lib dispatch-lib)
 
 ##########################################################
 add_subdirectory(libs/googletest/googletest)
@@ -63,10 +69,13 @@ add_executable(inputlib-tests
                 src/input/test/json_requests.cpp
                 src/input/test/req_type_test.cpp
                 src/input/test/request_test.cpp src/output/include/output.h)
-
 target_link_libraries(inputlib-tests gtest input-lib)
 
 add_executable(outputlib-tests
-            src/output/tests/tests.cpp src/output/json_response.cpp)
-
+            src/output/tests/tests.cpp
+            src/output/json_response.cpp)
 target_link_libraries(outputlib-tests gtest output-lib)
+
+add_executable(dispatchlib-tests
+            src/dispatch/test/tests.cpp)
+target_link_libraries(dispatchlib-tests gtest output-lib)

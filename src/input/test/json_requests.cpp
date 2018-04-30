@@ -112,7 +112,8 @@ json edges_post_j =
       "edges":{
         "post":{
           "to": 1,
-          "from": 2
+          "from": 2,
+          "transition": "a"
         }
       }
     })"_json;

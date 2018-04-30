@@ -182,7 +182,8 @@ static void from_json(const json &j, Request &req) {
             case EDGES_POST: {
                 auto to_post_ed = j.at("edges").at("post").at("to").get<size_t>();
                 auto from_post_ed = j.at("edges").at("post").at("from").get<size_t>();
-                req = Request(EDGES_POST, EDGE, POST, edges_post_s{to_post_ed, from_post_ed});
+                auto transition_post_ed = j.at("edges").at("post").at("transition").get<std::string>();
+                req = Request(EDGES_POST, EDGE, POST, edges_post_s{to_post_ed, from_post_ed, transition_post_ed});
             }
                 break;
             case EDGES_DELETE: {

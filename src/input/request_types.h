@@ -63,6 +63,7 @@ struct edges_get_s {
 struct edges_post_s {
     size_t to;
     size_t from;
+    std::string transition;
 };
 
 struct edges_delete_s {

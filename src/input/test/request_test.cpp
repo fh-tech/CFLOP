@@ -81,6 +81,8 @@ TEST(construct_request, edges) {
                     ASSERT_FALSE(struc.to == 3.9);
                     ASSERT_EQ(struc.from, 2);
                     ASSERT_FALSE(struc.from == '2');
+                    ASSERT_EQ(struc.transition, "a");
+                    ASSERT_FALSE(struc.transition == "fs");
                 }
                 break;
             case EDGES_DELETE:

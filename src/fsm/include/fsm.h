@@ -5,6 +5,8 @@
 #ifndef CFLOP_FSM_H
 #define CFLOP_FSM_H
 
-#include ""
+#include "../FinalStateMachine.h"
+#include "../State.h"
+#include "../Transition.h"
 
 #endif //CFLOP_FSM_H

@@ -5,8 +5,9 @@
 #ifndef CFLOP_OUTPUT_H
 #define CFLOP_OUTPUT_H
 
+#include "../json_response.cpp"
+#include "../response_types.h"
 #include "../../../libs/json/single_include/nlohmann/json.hpp"
-
 using json = nlohmann::json;
 
 

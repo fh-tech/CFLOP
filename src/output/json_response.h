@@ -5,7 +5,7 @@
 #ifndef CFLOP_JSON_RESPONSE_H
 #define CFLOP_JSON_RESPONSE_H
 
-#include "output.h"
+#include "include/output.h"
 
 extern json nodes_post_r_j;
 extern json nodes_delete_r_j;
