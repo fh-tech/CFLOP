@@ -13,6 +13,7 @@ struct edge_id {
     explicit operator bool() const {
         return m_id != 0;
     }
+
     operator size_t() const {
         return m_id;
     }
@@ -30,6 +31,10 @@ struct edge_id {
     edge_id(size_t t) : m_id(t)
     {
         if(t > id) id = t;
+    }
+
+    static void reset(){
+        id = 0;
     }
 
 private:

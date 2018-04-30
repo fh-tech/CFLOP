@@ -16,7 +16,7 @@ public:
     FinalStateMachine() = default;
 
     FinalStateMachine(std::vector<node<State>> nodes,
-                      std::vector<edge<Transition<char>>> edges,
+                      std::vector<edge<Transition<std::string>>> edges,
                       node_id start, node_id end, node_id current)
         : graph(nodes, edges)
         , start(start)
@@ -24,12 +24,12 @@ public:
         , current(current)
     {}
 
-    node_id advance(char symbol) {
+    node_id advance(std::string symbol) {
 
         auto next = graph.get_adjacent(this->current);
 
         for (edge_id e_id: next) {
-            edge<Transition<char>> *e = graph.get_edge(e_id);
+            edge<Transition<std::string>> *e = graph.get_edge(e_id);
             if (e) {
                 if (e->second.val.matches(symbol)) {
                     this->current = { e->second.to };
@@ -50,7 +50,7 @@ public:
         return graph.add_node(State{});
     }
 
-    edge_id add_transition(node_id from, node_id to, Transition<char> t){
+    edge_id add_transition(node_id from, node_id to, Transition<std::string> t){
         return graph.add_edge(from, to, std::move(t));
     }
 
@@ -93,13 +93,13 @@ public:
         return n.first;
     }
 
-    edge_id add_transition_from_parts(size_t& id, Transition<char>& t, node_id to, node_id from) {
-        edge<Transition<char>> e = from_parts(id, t, to, from);
+    edge_id add_transition_from_parts(size_t& id, Transition<std::string>& t, node_id to, node_id from) {
+        edge<Transition<std::string>> e = from_parts(id, t, to, from);
         graph.insert_edge(e);
         return e.first;
     }
 
-    std::vector<edge<Transition<char>>> get_Transitions(){
+    std::vector<edge<Transition<std::string>>> get_Transitions(){
         return graph.get_edges();
     }
 
@@ -111,7 +111,7 @@ public:
         return graph.get_node(id);
     }
 
-    edge<Transition<char>>* get_transtion(const edge_id& id){
+    edge<Transition<std::string>>* get_transtion(const edge_id& id){
         return graph.get_edge(id);
     }
 
@@ -123,7 +123,7 @@ public:
     }
 
 private:
-    Graph<State, Transition<char>> graph{};
+    Graph<State, Transition<std::string>> graph{};
     node_id start = node_id::invalid_node();
     node_id end = node_id::invalid_node();
     node_id current = node_id::invalid_node();
