@@ -13,8 +13,15 @@ using json = nlohmann::json;
 namespace input_lib {
 
     struct node {
-        size_t id;
+        size_t id = 0;
         std::vector<size_t> edges{};
+
+        node() = default;
+
+        node(size_t id, std::vector<size_t > &&vec)
+                : id (id)
+                , edges(std::move(vec))
+        {}
     };
     static void to_json(json &j, const node& n) {
         j["id"] = n.id;

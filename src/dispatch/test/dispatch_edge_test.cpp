@@ -13,11 +13,10 @@ TEST(dispatch, test_dispatch_edges_post){
     Request edges_post_req(EDGES_POST, EDGE, POST, edges_post_s{1, 2, "a"});
 
     Response r = dispatch_lib::dispatch(edges_post_req, fsm);
-    edges_post_r_s struc = std::get<edges_post_r_s>(r.response);
 
-    ASSERT_EQ(r.type, EDGES_POST);
-    //id should be 0 because tried to post edge between two non-existent nodes
-    ASSERT_EQ(0, struc.id);
+
+    //if a user tries to connect to non existing nodes the request is invalid
+    ASSERT_EQ(r.type, input_lib::INVALID_TYPE);
 }
 
 TEST(dispatch, test_dispatch_edges_post2){

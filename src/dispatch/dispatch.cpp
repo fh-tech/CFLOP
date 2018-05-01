@@ -117,19 +117,21 @@ namespace dispatch_lib {
                     return input_lib::edge{id, to, from, transition};
                 });
                 auto nodes_fsm = fsm.get_States();
+
                 std::vector<input_lib::node> nodes{};
-                std::transform(nodes_fsm.begin(), nodes_fsm.end(), nodes.begin(),
-                               [&fsm](auto fsm_node) -> input_lib::node {
-                                   std::vector<graph::edge_id> edges{};
-                                   fsm.get_adjacient_transitions(fsm_node.first);
-                                   std::vector<size_t> edges_size_t = {edges.begin(), edges.end()};
-                                   size_t id = fsm_node.first;
-                                   //TODO: no idea why - constructor exists
-                                   return input_lib::node{id, edges_size_t};
-                               });
+
+                for(const auto& fsm_node: nodes_fsm){
+
+                   auto edge_ids = fsm.get_adjacient_transitions(fsm_node.first);
+                   std::vector<size_t> edges_size_t = {edge_ids.begin(), edge_ids.end()};
+
+                   nodes.push_back(input_lib::node{(size_t)(fsm_node.first), std::move(edges_size_t)});
+                }
+
                 size_t active = fsm.get_current();
                 size_t start = fsm.get_start();
                 size_t end = fsm.get_end();
+
                 output_lib::state_get_r_s res{nodes, edges, active, start, end};
                 return output_lib::Response(r.type, res);
             }
@@ -141,7 +143,21 @@ namespace dispatch_lib {
                 size_t start = req.start;
                 size_t end = req.end;
 
-                // TODO: finish this
+                for(auto&node: nodes){
+                    fsm.add_state_form_parts(node.id, fsm::State{});
+                }
+                for(auto& edge: edges){
+                    fsm.add_transition_from_parts(
+                            edge.id,
+                            fsm::Transition<std::string>::from(edge.transition),
+                            edge.to,
+                            edge.from
+                    );
+                }
+
+                fsm.set_end(end);
+                fsm.set_start(start);
+
                 output_lib::state_post_r_s res{};
                 return output_lib::Response(r.type, res);
             }

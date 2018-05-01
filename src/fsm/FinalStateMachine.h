@@ -92,13 +92,13 @@ public:
         return graph.get_adjacent(id);
     }
 
-    graph::node_id add_sate_form_parts(size_t& id, State& state){
+    graph::node_id add_state_form_parts(size_t& id, State&& state){
         auto n = graph::from_parts<State>(id, state);
         return graph.insert_node(n);
     }
 
-    graph::edge_id add_transition_from_parts(size_t& id, Transition<std::string>& t, size_t to, size_t from) {
-        graph::edge<Transition<std::string>> e = graph::from_parts(id, t, graph::node_id{to}, graph::node_id{from});
+    graph::edge_id add_transition_from_parts(size_t& id, Transition<std::string>&& t, size_t to, size_t from) {
+        graph::edge<Transition<std::string>> e = graph::from_parts(id, t, graph::node_id{from}, graph::node_id{to});
         return graph.insert_edge(e);
     }
 
