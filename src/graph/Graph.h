@@ -49,12 +49,17 @@ namespace graph {
 
 
         edge_id add_edge(node_id from, node_id to, E&& val){
-            auto id = std::get<0>(
-                    *std::get<0>(
-                            edges.emplace(std::move(make_edge<E>(from, to, val)))
-                    ));
-            connections.insert(std::make_pair(from, id));
-            return  id;
+            if(get_node(from) && get_node(to)) {
+                auto id = std::get<0>(
+                        *std::get<0>(
+                                edges.emplace(std::move(make_edge<E>(from, to, val)))
+                        ));
+                connections.insert(std::make_pair(from, id));
+                return  id;
+            }else{
+                return edge_id::invalid();
+            }
+
         }
 
         node_id insert_node(const node<N>& n){
