@@ -17,9 +17,9 @@ namespace graph {
     class Graph {
 
     private:
-        std::unordered_map<node_id, N> nodes{};
-        std::unordered_map<edge_id, edge_data<E>> edges{};
-        std::unordered_multimap<node_id, edge_id> connections{};
+        std::unordered_map<node_id, N, node_hash> nodes{};
+        std::unordered_map<edge_id, edge_data<E>, edge_hash> edges{};
+        std::unordered_multimap<node_id, edge_id, node_hash> connections{};
 
     public:
         Graph() = default;

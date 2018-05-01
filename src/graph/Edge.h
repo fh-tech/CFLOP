@@ -12,35 +12,21 @@
 namespace graph {
 
     struct edge_id {
-        explicit operator bool() const {
-            return m_id != 0;
-        }
+        explicit operator bool() const;
 
-        operator size_t() const {
-            return m_id;
-        }
+        operator size_t() const;
 
-        bool operator==(const edge_id &other) const {
-            return this->m_id == other.m_id;
-        }
+        bool operator==(const edge_id &other) const;
 
-        static edge_id next_id() {
-            return edge_id{++id};
-        }
+        static edge_id next_id();
 
         edge_id(const edge_id &other) = default;
 
-        edge_id(size_t t) : m_id(t) {
-            if (t > id) id = t;
-        }
+        edge_id(size_t t);
 
-        static edge_id invalid() {
-            return {0};
-        }
+        static edge_id invalid();
 
-        static void reset() {
-            id = 0;
-        }
+        static void reset();
 
     private:
         static size_t id;
@@ -48,17 +34,14 @@ namespace graph {
 
     };
 
-    size_t edge_id::id = 0;
-}
-
-namespace std {
-    template <>
-    struct hash<graph::edge_id>{
+    struct edge_hash{
         std::size_t operator()(const graph::edge_id& c) const {
             return static_cast<size_t>(c);
         }
     };
-};
+
+}
+
 namespace graph {
 
     template<typename E>

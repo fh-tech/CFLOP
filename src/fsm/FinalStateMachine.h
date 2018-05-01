@@ -14,7 +14,11 @@ namespace fsm {
 class FinalStateMachine {
 public:
 
-    FinalStateMachine() = default;
+    FinalStateMachine()
+    {
+        graph::node_id::reset();
+        graph::edge_id::reset();
+    };
 
     FinalStateMachine(std::vector<graph::node<State>> nodes,
                       std::vector<graph::edge<Transition<std::string>>> edges,

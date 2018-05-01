@@ -8,15 +8,18 @@ add_executable(CFLOP
 
 add_library(graph-lib
         src/graph/include/graph.h
+        src/graph/Graph.h
         src/graph/Node.h
+        src/graph/Node.cpp
         src/graph/Edge.h
-        src/graph/Graph.h)
+        src/graph/Edge.cpp)
 
 add_library(fsm-lib
         src/fsm/include/fsm.h
         src/fsm/State.h
         src/fsm/Transition.h
         src/fsm/FinalStateMachine.h)
+target_link_libraries(fsm-lib graph-lib)
 
 add_library(input-lib
         src/input/include/input.h
@@ -31,7 +34,8 @@ add_library(output-lib
 
 add_library(dispatch-lib
         src/dispatch/include/dispatch.h
-        src/dispatch/dispatcher.h)
+        src/dispatch/dispatcher.h src/dispatch/dispatch.cpp)
+target_link_libraries(dispatch-lib input-lib output-lib fsm-lib graph-lib)
 
 include_directories(src/graph/include)
 include_directories(src/fsm/include)
@@ -81,6 +85,9 @@ target_link_libraries(outputlib-tests gtest output-lib)
 
 add_executable(dispatchlib-tests
             src/dispatch/test/tests.cpp
-        src/dispatch/test/dispatch_node_test.cpp
-        src/dispatch/test/dispatch_edge_test.cpp src/dispatch/test/dispatch_state_test.cpp src/dispatch/test/dispatch_fail_test.cpp)
-target_link_libraries(dispatchlib-tests gtest output-lib)
+            src/dispatch/test/dispatch_node_test.cpp
+            src/dispatch/test/dispatch_edge_test.cpp
+            src/dispatch/test/dispatch_state_test.cpp
+            src/dispatch/test/dispatch_fail_test.cpp)
+
+target_link_libraries(dispatchlib-tests gtest dispatch-lib)
