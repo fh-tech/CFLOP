@@ -17,7 +17,7 @@ namespace dispatch_lib {
  * @param fsm a fsm object
  * @return json response
  */
-output_lib::Response dispatch(input_lib::Request& r, FinalStateMachine& fsm) {
+output_lib::Response dispatch(input_lib::Request& r, fsm::FinalStateMachine& fsm) {
     json j;
     switch(r.type) {
         case input_lib::INVALID_TYPE: {
@@ -46,7 +46,7 @@ output_lib::Response dispatch(input_lib::Request& r, FinalStateMachine& fsm) {
 
             if(node_pair) {
                 size_t id = node_pair->first;
-                std::vector<edge_id> edges = fsm.get_adjacient_transitions(id);
+                std::vector<graph::edge_id> edges = fsm.get_adjacient_transitions(id);
                 std::vector<size_t> edges_size_t = {edges.begin(), edges.end()};
                 output_lib::nodes_get_r_s res{id, edges_size_t};
                 return output_lib::Response(r.type, res);
@@ -82,7 +82,7 @@ output_lib::Response dispatch(input_lib::Request& r, FinalStateMachine& fsm) {
         }
         case input_lib::EDGES_POST: {
             auto req = std::get<input_lib::edges_post_s>(r.request);
-            size_t id = fsm.add_transition(req.from, req.to, Transition::from(req.transition));
+            size_t id = fsm.add_transition(req.from, req.to, fsm::Transition::from(req.transition));
             if(id) {
                 output_lib::edges_post_r_s res{id};
                 return output_lib::Response(r.type, res);
@@ -99,20 +99,29 @@ output_lib::Response dispatch(input_lib::Request& r, FinalStateMachine& fsm) {
             return output_lib::Response(r.type, res);
         }
         case input_lib::STATE_GET: {
+            //TODO: control that - i cant handle working with grap and fsm lib
             auto req = std::get<input_lib::state_get_s>(r.request);
             auto edges_fsm = fsm.get_Transitions();
-            std::vector<edge> edges{};
+            std::vector<input_lib::edge> edges{};
             // transform an fsm_edge vector into a input-lib edge vector
-            std::transform(edges_fsm.begin(), edges_fsm.end(), edges.begin(), [](edge fsm_edge) -> edge {
-                return edge(fsm_edge.to, fsm_edge.from, fsm_edge.transition.into);
+            std::transform(edges_fsm.begin(), edges_fsm.end(), edges.begin(), [](graph::edge fsm_edge) -> input_lib::edge {
+                //TODO: maybe not necessary idk
+                size_t id = fsm_edge.first;
+                size_t to = fsm_edge.second.to;
+                size_t from = fsm_edge.second.from;
+                std::string transition = fsm_edge.second.val.into();
+                //TODO: no idea why - constructor exists
+                return input_lib::edge(id, to, from, transition);
             });
             auto nodes_fsm = fsm.get_States();
-            std::vector<node> nodes{};
-            std::transform(nodes_fsm.begin(), nodes_fsm.end(), nodes.begin(), [](node fsm_node) -> node {
-                std::vector<edge_id> edges{};
+            std::vector<input_lib::node> nodes{};
+            std::transform(nodes_fsm.begin(), nodes_fsm.end(), nodes.begin(), [](graph::node fsm_node) -> input_lib::node {
+                std::vector<graph::edge_id> edges{};
                 fsm.get_adjacient_transitions(fsm_node.first);
                 std::vector<size_t> edges_size_t = {edges.begin(), edges.end()};
-                return node(fsm_node.id, edges_size_t);
+                size_t id = fsm_node.first;
+                //TODO: no idea why - constructor exists
+                return input_lib::node(id, edges_size_t);
             });
             size_t active = fsm.get_current();
             size_t start = fsm.get_start();
@@ -122,8 +131,8 @@ output_lib::Response dispatch(input_lib::Request& r, FinalStateMachine& fsm) {
         }
         case input_lib::STATE_POST: {
             auto req = std::get<input_lib::state_post_s>(r.request);
-            std::vector<node> nodes = req.nodes;
-            std::vector<edge> edges{} = req.edges;
+            std::vector<input_lib::node> nodes = req.nodes;
+            std::vector<input_lib::edge> edges{} = req.edges;
             size_t active = req.active;
             size_t start = req.start;
             size_t end = req.end;

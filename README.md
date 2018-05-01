@@ -204,6 +204,7 @@
               "id": 1,
               "from": 0,
               "to": 1,
+              "transition": "a"
             }
           ],
           "active": 1,
@@ -234,7 +235,8 @@
               {
                 "id": 1,
                 "from": 0,
-                "to": 1
+                "to": 1,
+                "transition": "a"
               }
             ],
             "active": 1,

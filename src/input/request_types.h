@@ -30,11 +30,13 @@ namespace input_lib {
         size_t id;
         size_t from;
         size_t to;
+        std::string transition;
     };
     static void to_json(json &j, const edge& e) {
         j["id"] = e.id;
         j["from"] = e.from;
         j["to"] = e.to;
+        j["transition"] = e.transition;
     }
     static void from_json(const json &j, edge& e) {
         e.id = j.at("id").get<size_t>();
