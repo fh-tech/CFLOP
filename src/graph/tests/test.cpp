@@ -6,18 +6,26 @@
 #include <stack>
 #include "../include/graph.h"
 
+using namespace graph;
+
 TEST(test, tester){
     ASSERT_TRUE(!false);
 }
 
 TEST(node, graph_makes_new_node){
     Graph<int, int> g{};
+    edge_id::reset();
+    node_id::reset();
+
     auto id = g.add_node(4);
     ASSERT_EQ(4, g.get_node(id)->second);
 }
 
 TEST(edge, graph_makes_new_edge) {
     Graph<int, int> g{};
+    edge_id::reset();
+    node_id::reset();
+
     auto id1 = g.add_node(1);
     auto id2 = g.add_node(2);
 
@@ -28,6 +36,9 @@ TEST(edge, graph_makes_new_edge) {
 
 TEST(graph, connection){
     Graph<int, int> g{};
+    edge_id::reset();
+    node_id::reset();
+
     auto id1 = g.add_node(1);
     auto id2 = g.add_node(2);
 
@@ -48,6 +59,8 @@ TEST(graph, connection){
 
 TEST(graph, remove_node){
     Graph<int, int> g{};
+    edge_id::reset();
+    node_id::reset();
 
     auto id1 = g.add_node(1);
     auto id2 = g.add_node(2);
@@ -86,6 +99,8 @@ TEST(graph, remove_node){
 
 TEST(graph, check_adjacient){
     Graph<int, int> g{};
+    edge_id::reset();
+    node_id::reset();
 
     auto nid1 = g.add_node(1);
     auto nid2 = g.add_node(1);
@@ -122,6 +137,8 @@ TEST(graph, check_adjacient){
 
 TEST(graph, remove_node_adj){
     Graph<int, int> g{};
+    edge_id::reset();
+    node_id::reset();
 
     auto nid1 = g.add_node(1);
     auto nid2 = g.add_node(1);
@@ -159,6 +176,8 @@ TEST(graph, remove_node_adj){
 
 TEST(graph, remove_edge){
     Graph<int, int> g{};
+    edge_id::reset();
+    node_id::reset();
 
     auto nid1 = g.add_node(1);
     auto nid2 = g.add_node(1);
@@ -214,6 +233,8 @@ TEST(graph, remove_edge){
 }
 
 TEST(node, from_parts){
+    edge_id::reset();
+    node_id::reset();
 
     node<char> n = make_node('1');
     node<char> n2 = make_node('2');
@@ -226,6 +247,9 @@ TEST(node, from_parts){
 }
 
 TEST(edge, from_parts){
+    edge_id::reset();
+    node_id::reset();
+
     auto n1 = make_node('1');
     auto n2 = make_node('1');
     auto n3 = make_node('1');
