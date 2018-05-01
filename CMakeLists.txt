@@ -27,7 +27,7 @@ add_library(input-lib
 add_library(output-lib
         src/output/include/output.h
         src/output/response_types.h
-        src/output/tests/json_response.cpp)
+        src/output/Response.h)
 
 add_library(dispatch-lib
         src/dispatch/include/dispatch.h
@@ -73,12 +73,14 @@ target_link_libraries(inputlib-tests gtest input-lib)
 
 add_executable(outputlib-tests
             src/output/tests/tests.cpp
-            src/output/tests/json_response.cpp
-            src/input/test/json_requests.cpp src/output/tests/to_json_test.cpp)
+            src/output/tests/to_json_nodes.cpp
+            src/output/tests/to_json_state.cpp
+            src/output/tests/to_json_edge.cpp
+            src/output/tests/to_json_fail.cpp)
 target_link_libraries(outputlib-tests gtest output-lib)
 
 add_executable(dispatchlib-tests
             src/dispatch/test/tests.cpp
-            src/dispatch/test/dispatch_test.cpp
-            src/dispatch/test/requests.cpp)
+        src/dispatch/test/dispatch_node_test.cpp
+        src/dispatch/test/dispatch_edge_test.cpp src/dispatch/test/dispatch_state_test.cpp src/dispatch/test/dispatch_fail_test.cpp)
 target_link_libraries(dispatchlib-tests gtest output-lib)

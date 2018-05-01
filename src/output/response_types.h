@@ -21,7 +21,7 @@ static void from_json(const json &j, nodes_post_r_s &res) {}
 
 struct nodes_delete_r_s {};
 static void to_json(json &j, const nodes_delete_r_s &res) {
-    j["success"] = {};
+    j["success"] = json::object();
 }
 static void from_json(const json &j, nodes_delete_r_s &res) {}
 
@@ -39,14 +39,14 @@ static void from_json(const json &j, nodes_get_r_s &req) {}
 
 struct nodes_put_start_r_s {};
 static void to_json(json &j, const nodes_put_start_r_s &res) {
-    j["success"] = {};
+    j["success"] = json::object();
 }
 static void from_json(const json &j, nodes_put_start_r_s &req) {}
 
 
 struct nodes_put_end_r_s {};
 static void to_json(json &j, const nodes_put_end_r_s &res) {
-    j["success"] = {};
+    j["success"] = json::object();
 }
 static void from_json(const json &j, nodes_put_end_r_s &res) {}
 
@@ -77,7 +77,7 @@ static void from_json(const json &j, edges_post_r_s &res) {}
 
 struct edges_delete_r_s {};
 static void to_json(json &j, const edges_delete_r_s &res) {
-    j["success"] = {};
+    j["success"] = json::object();
 }
 static void from_json(const json &j, edges_delete_r_s &res) {}
 
@@ -101,7 +101,7 @@ static void from_json(const json &j, state_get_r_s &res) {}
 
 struct state_post_r_s {};
 static void to_json(json &j, const state_post_r_s &res) {
-    j["success"] = {};
+    j["success"] = json::object();
 }
 static void from_json(const json &j, state_post_r_s &res) {}
 
