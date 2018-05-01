@@ -25,7 +25,8 @@ add_library(input-lib
         src/input/include/input.h
         src/input/Request.h
         src/input/extract_helper.h
-        src/input/request_types.h src/output/include/output.h)
+        src/input/request_types.h
+        src/output/include/output.h)
 
 add_library(output-lib
         src/output/include/output.h
@@ -89,5 +90,4 @@ add_executable(dispatchlib-tests
             src/dispatch/test/dispatch_edge_test.cpp
             src/dispatch/test/dispatch_state_test.cpp
             src/dispatch/test/dispatch_fail_test.cpp)
-
 target_link_libraries(dispatchlib-tests gtest dispatch-lib)

@@ -30,6 +30,10 @@ TEST(dispatch, test_dispatch_nodes_delete){
     Response r = dispatch_lib::dispatch(nodes_delete_req, fsm);
     nodes_delete_r_s struc = std::get<nodes_delete_r_s>(r.response);
     ASSERT_EQ(r.type, NODES_DELETE);
+
+    //should be gone
+    auto node_deleted = fsm.get_state(1);
+    ASSERT_EQ(node_deleted, nullptr);
 }
 
 TEST(dispatch, test_dispatch_nodes_get){
@@ -42,6 +46,8 @@ TEST(dispatch, test_dispatch_nodes_get){
     nodes_get_r_s struc = std::get<nodes_get_r_s>(r.response);
 
     ASSERT_EQ(r.type, NODES_GET);
+    ASSERT_EQ(struc.id, 1);
+    ASSERT_EQ(struc.edges.size(), 0);
 }
 TEST(dispatch, test_dispatch_nodes_put_start){
     fsm::FinalStateMachine fsm{};
@@ -53,6 +59,10 @@ TEST(dispatch, test_dispatch_nodes_put_start){
     nodes_put_start_r_s struc = std::get<nodes_put_start_r_s>(r.response);
 
     ASSERT_EQ(r.type, NODES_PUT_START);
+
+    // is the node now start?
+    auto node_start = fsm.get_start();
+    ASSERT_EQ(1, node_start);
 }
 
 TEST(dispatch, test_dispatch_nodes_put_end){
@@ -63,5 +73,9 @@ TEST(dispatch, test_dispatch_nodes_put_end){
     nodes_put_end_r_s struc = std::get<nodes_put_end_r_s>(r.response);
 
     ASSERT_EQ(r.type, NODES_PUT_END);
+
+    //is the node now end?
+    auto node_end = fsm.get_end();
+    ASSERT_EQ(1, node_end);
 }
 
