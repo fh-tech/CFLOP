@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 #include "../include/output.h"
 
+using namespace output_lib;
 
 TEST(to_json, nodes_post) {
     nodes_post_r_s nodes_post_r_example{0};

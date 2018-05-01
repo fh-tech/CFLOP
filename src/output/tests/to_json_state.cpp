@@ -5,13 +5,14 @@
 #include <gtest/gtest.h>
 #include "../include/output.h"
 
+using namespace output_lib;
 
 TEST(to_json, state_get) {
-    node n1{0, std::vector<size_t>{1,2,3}};
-    node n2{1, std::vector<size_t>{1,3}};
-    std::vector<node> nodes{n1,n2};
-    edge e1{1,0,1};
-    std::vector<edge> edges{e1};
+    input_lib::node n1{0, std::vector<size_t>{1,2,3}};
+    input_lib::node n2{1, std::vector<size_t>{1,3}};
+    std::vector<input_lib::node> nodes{n1,n2};
+    input_lib::edge e1{1,0,1};
+    std::vector<input_lib::edge> edges{e1};
     state_get_r_s state_get_r_example{nodes, edges, 1, 1, 0};
     json j;
     j = state_get_r_example;

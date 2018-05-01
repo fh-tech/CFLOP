@@ -5,6 +5,8 @@
 #include <gtest/gtest.h>
 #include "../include/output.h"
 
+using namespace output_lib;
+
 TEST(to_json, failure) {
 failure_r_s failure_r_example{"some fail message"};
 json j;

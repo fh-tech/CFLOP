@@ -6,6 +6,7 @@
 #include <input.h>
 #include "json_requests.h"
 
+using namespace input_lib;
 
 TEST(convert_endpoint, convert_state) {
     const endpoint e = STATE;

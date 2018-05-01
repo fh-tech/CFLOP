@@ -5,6 +5,8 @@
 #include <gtest/gtest.h>
 #include "../include/output.h"
 
+using namespace output_lib;
+
 TEST(to_json, edges_get) {
 std::string transition = "a";
 edges_get_r_s edges_get_r_example{0,1,2,transition};

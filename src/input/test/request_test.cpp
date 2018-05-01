@@ -6,6 +6,8 @@
 #include <input.h>
 #include "json_requests.h"
 
+using namespace input_lib;
+
 TEST(construct_request, nodes) {
     std::vector<req_type> type_results{NODES_POST, NODES_DELETE, NODES_GET, NODES_PUT_START, NODES_PUT_END};
     std::vector<req_method> m_results{POST, DELETE, GET, PUT, PUT};

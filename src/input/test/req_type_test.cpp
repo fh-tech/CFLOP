@@ -6,6 +6,8 @@
 #include <input.h>
 #include "json_requests.h"
 
+using namespace input_lib;
+
 TEST(make_req_type, req_type_nodes) {
     std::array<req_type,5> results = {NODES_POST, NODES_DELETE, NODES_GET, NODES_PUT_START, NODES_PUT_END};
     for(int i = 0; i < nodes_j_vec.size(); i++) {

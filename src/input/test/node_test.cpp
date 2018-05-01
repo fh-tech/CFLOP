@@ -7,6 +7,8 @@
 #include <input.h>
 #include "json_requests.h"
 
+using namespace input_lib;
+
 TEST(extract_endpoint_test, test1) {
     std::string input = "{\"nodes\":{\"put\":{\"start\":{\"id\": 0 }}}}";
     std::istringstream inputS;

@@ -3,6 +3,8 @@
 #include "input.h"
 #include "json_requests.h"
 
+using namespace input_lib;
+
 TEST(extract_helper, extract_all_fromEdge) {
     std::array<endpoint, 3> endpoint_results = {EDGE, EDGE, EDGE};
     std::array<std::string, 3> conversion_results = {"edges", "edges", "edges"};
