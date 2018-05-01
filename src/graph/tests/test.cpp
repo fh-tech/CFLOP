@@ -6,6 +6,8 @@
 #include <stack>
 #include "../include/graph.h"
 
+using namespace graph;
+
 TEST(test, tester){
     ASSERT_TRUE(!false);
 }

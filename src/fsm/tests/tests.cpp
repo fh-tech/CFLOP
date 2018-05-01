@@ -6,6 +6,9 @@
 #include <graph.h>
 #include "../FinalStateMachine.h"
 
+using namespace fsm;
+using namespace graph;
+
 TEST(fsm, test_export){
     node_id::reset();
     edge_id::reset();

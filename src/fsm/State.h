@@ -4,18 +4,19 @@
 
 #ifndef CFLOP_STATE_H
 #define CFLOP_STATE_H
+namespace fsm {
 
-class State {
+    class State {
 
-public:
-    State()
-    {}
-    void visit(){}
+    public:
+        State() {}
 
-    bool operator==(const State other) const {
-        return true;
-    }
-};
+        void visit() {}
 
+        bool operator==(const State other) const {
+            return true;
+        }
+    };
 
+}
 #endif //CFLOP_STATE_H

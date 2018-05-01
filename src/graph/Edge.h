@@ -9,84 +9,86 @@
 #include <utility>
 #include "Node.h"
 
-struct edge_id {
-    explicit operator bool() const {
-        return m_id != 0;
-    }
+namespace graph {
 
-    operator size_t() const {
-        return m_id;
-    }
+    struct edge_id {
+        explicit operator bool() const {
+            return m_id != 0;
+        }
 
-    bool operator == (const edge_id &other) const {
-        return this->m_id == other.m_id;
-    }
+        operator size_t() const {
+            return m_id;
+        }
 
-    static edge_id next_id(){
-        return edge_id{++id};
-    }
+        bool operator==(const edge_id &other) const {
+            return this->m_id == other.m_id;
+        }
 
-    edge_id(const edge_id& other) = default;
+        static edge_id next_id() {
+            return edge_id{++id};
+        }
 
-    edge_id(size_t t) : m_id(t)
-    {
-        if(t > id) id = t;
-    }
+        edge_id(const edge_id &other) = default;
 
-    static edge_id invalid(){
-        return { 0 };
-    }
+        edge_id(size_t t) : m_id(t) {
+            if (t > id) id = t;
+        }
 
-    static void reset(){
-        id = 0;
-    }
+        static edge_id invalid() {
+            return {0};
+        }
 
-private:
-    static size_t id;
-    std::size_t m_id;
+        static void reset() {
+            id = 0;
+        }
 
-};
-size_t edge_id::id = 0;
+    private:
+        static size_t id;
+        std::size_t m_id;
+
+    };
+
+    size_t edge_id::id = 0;
+}
 
 namespace std {
     template <>
-    struct hash<edge_id>{
-        std::size_t operator()(const edge_id& c) const {
+    struct hash<graph::edge_id>{
+        std::size_t operator()(const graph::edge_id& c) const {
             return static_cast<size_t>(c);
         }
     };
 };
+namespace graph {
 
-template <typename E>
-struct edge_data {
-    node_id from;
-    node_id to;
-    E val;
+    template<typename E>
+    struct edge_data {
+        node_id from;
+        node_id to;
+        E val;
 
-    edge_data(node_id from, node_id to, E val)
-            :from(from)
-            ,to(to)
-            , val(val)
-    {}
+        edge_data(node_id from, node_id to, E val)
+                : from(from), to(to), val(val) {}
 
-    bool operator==(const edge_data& other) const {
-        return other.from == from
-            && other.to == to
-            && other.val == val;
+        bool operator==(const edge_data &other) const {
+            return other.from == from
+                   && other.to == to
+                   && other.val == val;
+        }
+    };
+
+    template<typename E>
+    using edge = std::pair<const edge_id, edge_data<E>>;
+
+    template<typename E>
+    edge<E> from_parts(size_t id, E val, node_id from, node_id to) {
+        return std::make_pair(edge_id(id), edge_data<E>{from, to, val});
     }
-};
 
-template <typename E>
-using edge = std::pair<const edge_id, edge_data<E>>;
-
-template <typename E>
-edge<E> from_parts(size_t id, E val, node_id from, node_id to){
-    return std::make_pair(edge_id(id), edge_data<E>{from, to, val} );
-}
-
-template <typename E>
-std::pair<const edge_id, edge_data<E>> make_edge(node_id from, node_id to, E val){
-    return std::make_pair(edge_id::next_id(), std::move(edge_data<E>{from, to, val}));
+    template<typename E>
+    std::pair<const edge_id, edge_data<E>> make_edge(node_id from, node_id to, E val) {
+        return std::make_pair(edge_id::next_id(), std::move(edge_data<E>{from, to, val}));
+    }
 }
 
 #endif //CFLOP_EDGE_H
