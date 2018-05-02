@@ -21,7 +21,6 @@ TEST(dispatch, test_dispatch_fail_edge_post){
 
     ASSERT_EQ(r.type, INVALID_TYPE);
     //id should be 0 because tried to post edge between two non-existent nodes
-    std::cout << struc.failure << std::endl;
     std::string expected = "Something went wrong... one of the nodes does not exists";
     ASSERT_EQ(struc.failure, expected);
 }
