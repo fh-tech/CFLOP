@@ -23,6 +23,8 @@ before_install:
   - git submodule update --init --recursive
 
 script:
+  - export CC=gcc-7
+  - export CXX=g++-7
   - cmake -H. -Bbuild
   - cd build
   - cmake --build .
