@@ -112,14 +112,14 @@ TEST(fsm, equality){
     auto t12 = fsm1.add_transition(s13, s12, {"b"});
 
     FinalStateMachine fsm2{};
-    auto s21 = fsm1.add_state();
-    auto s22 = fsm1.add_state();
-    auto s23 = fsm1.add_state();
+    auto s21 = fsm2.add_state();
+    auto s22 = fsm2.add_state();
+    auto s23 = fsm2.add_state();
 
-    auto t21 = fsm1.add_transition(s21, s22, {"a"});
-    auto t22 = fsm1.add_transition(s23, s22, {"b"});
+    auto t21 = fsm2.add_transition(s21, s22, {"a"});
+    auto t22 = fsm2.add_transition(s23, s22, {"b"});
 
-    ASSERT_FALSE(fsm1 == fsm2);
+    ASSERT_TRUE(fsm1 == fsm2);
 
     auto edges = fsm1.get_Transitions();
     auto nodes = fsm1.get_States();

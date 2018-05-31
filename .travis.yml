@@ -1,0 +1,28 @@
+os:
+  - linux
+dist: trusty
+language:
+  - cpp
+compiler:
+  - gcc
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - sourceline: "ppa:beineri/opt-qt-5.10.1-trusty"
+    packages:
+      - gcc-7
+      - g++-7
+
+before_install:
+  - pip install --user cpp-coveralls
+
+
+script:
+  - cmake -H. -Bbuild
+  - cd build
+  - cmake --build .
+  - ctest
+
+after_success:
+  - coveralls --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*test/.*.cpp.*"
