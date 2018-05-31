@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.com/fh-tech/CFLOP.svg?branch=master)](https://travis-ci.com/fh-tech/CFLOP)
 
-##Finite State Machine Simulation
+## Finite State Machine Simulation
 
 ### Communication between back- and frontend via JSON (HTTP-Style)
 
-####1. General
+#### 1. General
 CFLOP is a Backend written in C++ which provides all functionality needed for a Finite State Machine.
 Communication takes place via JSON. The backend takes a Request in JSON and converts it to a C++ request representation. 
 After that the dispatcher takes the request looks at its type and decides which action to execute. Then the finite state 
@@ -193,7 +193,7 @@ A short list of endpoints which can be used and how to communicate with them.
     }
     ```
 
-####2.3 STATE
+#### 2.3 STATE
 * GET
     * gets the current state of the graph (all nodes, all edges, start, end, active) (save)
     * request
