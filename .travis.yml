@@ -14,9 +14,13 @@ addons:
       - gcc-7
       - g++-7
 
+git:
+    submodules: false
+
 before_install:
   - pip install --user cpp-coveralls
-
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
 
 script:
   - cmake -H. -Bbuild
