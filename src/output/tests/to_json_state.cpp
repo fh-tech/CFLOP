@@ -33,7 +33,8 @@ TEST(to_json, state_get) {
             {
               "id": 1,
               "from": 0,
-              "to": 1
+              "to": 1,
+              "transition": ""
             }
           ],
           "active": 1,
@@ -42,6 +43,9 @@ TEST(to_json, state_get) {
         }
       }
     })"_json;
+    std::cout << j << std::endl << std::endl;
+    std::cout << state_get_r_j << std::endl;
+
     ASSERT_EQ(j, state_get_r_j);
 }
 
