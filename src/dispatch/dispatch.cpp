@@ -8,7 +8,7 @@ namespace dispatch_lib {
     //REVIEW: zum ausprobiern mit 'Strg+Alt+M' extract method heraus gehoben
     // sieht vl besser aus
     output_lib::Response dispatch_invalid(const input_lib::Request &r) {
-        std::__cxx11::string message = "invalid json input";
+        std::string message = "invalid json input";
         output_lib::failure_r_s res{message};
         return output_lib::Response(r.type, res);
     }

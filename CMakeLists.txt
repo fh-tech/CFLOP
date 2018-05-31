@@ -1,7 +1,8 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.0)
 project(CFLOP)
 
 set(CMAKE_CXX_STANDARD 17)
+enable_testing()
 
 add_executable(CFLOP
         src/main.cpp)
@@ -60,10 +61,13 @@ include_directories(${gtest_include_dir})
 add_executable(graphlib-tests
         src/graph/tests/test.cpp)
 target_link_libraries(graphlib-tests gtest graph-lib)
+add_test(NAME graphlib-unittests COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/graphlib-tests)
+
 
 add_executable(fsmlib-tests
         src/fsm/tests/tests.cpp)
 target_link_libraries(fsmlib-tests gtest fsm-lib)
+add_test(NAME fsmlib-unittests COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/fsmlib-tests)
 
 add_executable(inputlib-tests
                 src/input/test/tests.cpp
@@ -73,8 +77,12 @@ add_executable(inputlib-tests
                 src/input/test/state_tests.cpp
                 src/input/test/json_requests.cpp
                 src/input/test/req_type_test.cpp
-                src/input/test/request_test.cpp src/output/include/output.h)
+                src/input/test/request_test.cpp
+                src/output/include/output.h)
 target_link_libraries(inputlib-tests gtest input-lib)
+
+add_test(NAME inputlib-unittests COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/inputlib-tests)
+
 
 add_executable(outputlib-tests
             src/output/tests/tests.cpp
@@ -84,10 +92,16 @@ add_executable(outputlib-tests
             src/output/tests/to_json_fail.cpp)
 target_link_libraries(outputlib-tests gtest output-lib)
 
+add_test(NAME outputlib-unittests COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/outputlib-tests)
+
 add_executable(dispatchlib-tests
             src/dispatch/test/tests.cpp
             src/dispatch/test/dispatch_node_test.cpp
             src/dispatch/test/dispatch_edge_test.cpp
             src/dispatch/test/dispatch_state_test.cpp
             src/dispatch/test/dispatch_fail_test.cpp)
+
+add_test(NAME dispatchlib-unittests COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/dispatchlib-tests)
+
 target_link_libraries(dispatchlib-tests gtest dispatch-lib)
+
