@@ -19,7 +19,16 @@ It would also be possible to build a webserver around this backend.
 
 So pretty much any front end can be built using this backend. Feel free to use it!
 
+#### Usage
+Meant to be used as a library, you can build it though and try it out on the command line if you like.
+* run make
+* go into `/build` and pipe a file with a valid json on one line into the executable 
+    - e.g `./CFLOP < test.json`
+* you can find a testfile in `/test/test.json`
+
+
 ![](img/description.png)
+
 
 #### 2. Endpoints 
 A short list of endpoints which can be used and how to communicate with them. 
